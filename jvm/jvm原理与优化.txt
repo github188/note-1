@@ -1,0 +1,21 @@
+http://blog.csdn.net/ning109314/article/details/10411495
+
+内存由 Perm 和 Heap 组成. 其中
+Heap = {Old + NEW = { Eden , from, to } }
+JVM内存模型中分两大块，一块是 NEW Generation, 另一块是Old Generation. 在New Generation中，有一个叫Eden的空间，主要是用来存放新生的对象，还有两个Survivor Spaces（from,to）, 它们用来存放每次垃圾回收后存活下来的对象。在Old Generation中，主要存放应用程序中生命周期长的内存对象，还有个Permanent Generation，主要用来放JVM自己的反射对象，比如类对象和方法对象等。
+垃圾回收描述：
+在New Generation块中，垃圾回收一般用Copying的算法，速度快。每次GC的时候，存活下来的对象首先由Eden拷贝到某个Survivor Space, 当Survivor Space空间满了后, 剩下的live对象就被直接拷贝到Old Generation中去。因此，每次GC后，Eden内存块会被清空。在Old Generation块中，垃圾回收一般用mark-compact的算法，速度慢些，但减少内存要求.
+垃圾回收分多级，0级为全部(Full)的垃圾回收，会回收OLD段中的垃圾；1级或以上为部分垃圾回收，只会回收NEW中的垃圾，内存溢出通常发生于OLD段或Perm段垃圾回收后，仍然无内存空间容纳新的Java对象的情况。
+
+当一个URL被访问时，内存申请过程如下：
+A. JVM会试图为相关Java对象在Eden中初始化一块内存区域
+B. 当Eden空间足够时，内存申请结束。否则到下一步
+C. JVM试图释放在Eden中所有不活跃的对象（这属于1或更高级的垃圾回收）, 释放后若Eden空间仍然不足以放入新对象，则试图将部分Eden中活跃对象放入Survivor区
+D. Survivor区被用来作为Eden及OLD的中间交换区域，当OLD区空间足够时，Survivor区的对象会被移到Old区，否则会被保留在Survivor区
+E. 当OLD区空间不够时，JVM会在OLD区进行完全的垃圾收集（0级）
+F. 完全垃圾收集后，若Survivor及OLD区仍然无法存放从Eden复制过来的部分对象，导致JVM无法在Eden区为新对象创建内存区域，则出现”out of memory错误”
+JVM调优建议:
+ms/mx：定义YOUNG+OLD段的总尺寸，ms为JVM启动时YOUNG+OLD的内存大小；mx为最大可占用的YOUNG+OLD内存大小。在用户生产环境上一般将这两个值设为相同，以减少运行期间系统在内存申请上所花的开销。
+NewSize/MaxNewSize：定义YOUNG段的尺寸，NewSize为JVM启动时YOUNG的内存大小；MaxNewSize为最大可占用的YOUNG内存大小。在用户生产环境上一般将这两个值设为相同，以减少运行期间系统在内存申请上所花的开销。
+PermSize/MaxPermSize：定义Perm段的尺寸，PermSize为JVM启动时Perm的内存大小；MaxPermSize为最大可占用的Perm内存大小。在用户生产环境上一般将这两个值设为相同，以减少运行期间系统在内存申请上所花的开销。
+SurvivorRatio：设置Survivor空间和Eden空间的比例
