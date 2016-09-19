@@ -7,21 +7,24 @@
 --订足率=订购量*100.00/投放量
 
 SELECT 
-PACK_BAR,
-TACTIC_TYPE,--货源属性
-QTY_IOW,--商业本周期初库存(条)
-QTY_PURCH, --商业本周购进量(条)
-SUPPLY_WAY, --投放方式
-QTY_SUPPLY,--商业投放量 
-CUST_COUNT_SUPPLY, --投放户数（个）
-CUST_COUNT_NEED ,--有需求户数
-CUST_COUNT_ORD ,--订购户数
-QTY_NEED,--零售户需求量(条)
-QTY_ORD,--零售户订购量(条)
-CO_COUNT_ORDFULL,--订满户次
-CUST_COUNT_SUPPLY  --投放户数
-
-FROM SCMR_SGP_ITEM_WEEK WHERE PACK_BAR IN ('') 
-AND BEGIN_DAY>='20160801'
-AND END_DAY<='20160831'  ;
+	PACK_BAR,
+	TACTIC_TYPE,--货源属性
+	QTY_IOW,--商业本周期初库存(条)
+	QTY_PURCH, --商业本周购进量(条)
+	SUPPLY_WAY, --投放方式
+	QTY_SUPPLY,--商业投放量 
+	CUST_COUNT_SUPPLY, --投放户数（个）
+	CUST_COUNT_NEED ,--有需求户数
+	CUST_COUNT_ORD ,--订购户数
+	QTY_NEED,--零售户需求量(条)
+	QTY_ORD,--零售户订购量(条)
+	CO_COUNT_ORDFULL,--订满户次
+	CUST_COUNT_SUPPLY  --投放户数
+FROM 
+	SCMR_SGP_ITEM_WEEK 
+WHERE 
+	PACK_BAR IN ('') 
+	AND BEGIN_DAY>='20160801'
+	AND END_DAY<='20160831'
+;
 

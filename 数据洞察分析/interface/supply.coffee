@@ -1,6 +1,8 @@
 [
 	{
 		title:'货源投放分析' #接口名
+		cmd:'supply.cmd?method=supplyanalysis'
+		jsp:'supply/supplyAnalysis/base.jsp'
 		url:'@imr@/pc/supply.cmd?method=getSupplyAnalysisData'
 		param:{
 			'monthId':'查询月份'
@@ -22,6 +24,8 @@
 	}
 	{
 		title:'在销地市覆盖情况' #接口名
+		cmd:'supply.cmd?method=comsalinganalysis'#参数monthId;packBar；原样返回
+		jsp:'supply/supplyAnalysis/comsaling.jsp'
 		url:'@imr@/pc/supply.cmd?method=getComSalingAnalysisData'
 		param:{
 			'monthId':'查询月份'
@@ -29,6 +33,26 @@
 		}
 		return:{ #字段对应列名
 			CCOM_ID:'地市'
+			COM_NAME:'地市名称'
+			FLAG:'是否在销 1是0否'
+			DEPT_COUNT_SALE:'覆盖县级单位数（个）'
+			DEPT_COUNT_NORMAL :'正常销售区县个数'
+			CUST_COUNT_ORD:'订购客户数（个）'
+			CUST_COUNT_NORMAL:'正常经营零售客户数'
+		}
+	}
+	{
+		title:'投放规则明细' #接口名
+		cmd:'supply.cmd?method=supplydetail' #参数date;packBar;返回date月份第一个周一
+		jsp:'supply/supplyAnalysis/supplydetail.jsp'
+		url:'@imr@/pc/supply.cmd?method=getSupplyDetailData'
+		param:{
+			'date':'默认月份第一个周一'
+			'packBar':'卷烟条码'
+		}
+		return:{ #字段对应列名
+			CCOM_ID:'地市'
+			COM_NAME:'地市名称'
 			FLAG:'是否在销 1是0否'
 			DEPT_COUNT_SALE:'覆盖县级单位数（个）'
 			DEPT_COUNT_NORMAL :'正常销售区县个数'

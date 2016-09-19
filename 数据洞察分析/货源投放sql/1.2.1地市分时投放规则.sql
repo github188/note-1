@@ -7,23 +7,25 @@
 --QTY_ORD/QTY_NEED QTYRATE --订单满足率(%)
 
 SELECT 
-BEGIN_DAY,--开始日期
-END_DAY,--结束日期
-QTY_IOW,--期初库存量
-QTY_PURCH,--商业本周购进量(条)
-SUPPLY_WAY,--投放方式
-QTY_SUPPLY,--商业投放量(条)
-CUST_COUNT_SUPPLY, --投放户数（个）
-CUST_COUNT_NEED ,--有需求户数
-CUST_COUNT_ORD ,--订购户数
-QTY_NEED,--零售户需求量(条)
-QTY_ORD,--零售户订购量(条)
-CO_COUNT_ORDFULL,--订满户次
-CUST_COUNT_SUPPLY , --投放户数
-QTY_ORD_PERCENT_TOP1 --前1%订购量
-FROM SCMR_SGP_ITEM_WEEK
-
-WHERE PACK_BAR='' 
-AND BEGIN_DAY>='20160801'
-AND END_DAY<='20160831' 
-AND CCOM_ID='' ;
+	BEGIN_DAY,--开始日期
+	END_DAY,--结束日期
+	QTY_IOW,--期初库存量
+	QTY_PURCH,--商业本周购进量(条)
+	SUPPLY_WAY,--投放方式
+	QTY_SUPPLY,--商业投放量(条)
+	CUST_COUNT_SUPPLY, --投放户数（个）
+	CUST_COUNT_NEED ,--有需求户数
+	CUST_COUNT_ORD ,--订购户数
+	QTY_NEED,--零售户需求量(条)
+	QTY_ORD,--零售户订购量(条)
+	CO_COUNT_ORDFULL,--订满户次
+	CUST_COUNT_SUPPLY , --投放户数
+	QTY_ORD_PERCENT_TOP1 --前1%订购量
+FROM 
+	SCMR_SGP_ITEM_WEEK
+WHERE 
+	PACK_BAR='' 
+	AND BEGIN_DAY>='20160801'
+	AND END_DAY<='20160831' 
+	AND CCOM_ID='' 
+;
