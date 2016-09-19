@@ -1,0 +1,60 @@
+{
+	icmTask:{}, //活动
+	icmTaskCom:[], //公司活动
+	icmInvestigate:{}, //调查|知识竞赛
+	icmInvestItem:[], //调查|知识竞赛 题目
+	icmInvestOption:[] //调查|知识竞赛 选项
+}
+
+---------------------------------------------------------------------------
+以下字段，转驼峰命名组织json
+
+任务表（ICM_TASK）	TASK_ID	VARCHAR(30)	任务编码
+	TASK_TITLE	VARCHAR(128)	任务标题
+	SUB_TITLE	VARCHAR(64)	任务副标题
+	TASK_DESC	CLOB	任务描述
+	TASK_TYPE	CHAR(2)	任务类型
+	TASK_CYCLE	CHAR(4)	任务周期
+	LIMIT_TIMES	INTEGER	限制次数
+	INNER_TYPE	CHAR(4)	任务级别
+	CRT_USER	VARCHAR(30)	创建人
+	CRT_TIME	VARCHAR(16)	创建时间
+	SCORE_ORG	VARCHAR(30)	记分所属机构
+	SCORE_KIND	CHAR(2)	记分类别
+	SCORE	INTEGER	记分
+	TASK_STEP	CHAR(1)	任务步骤
+	USER_TYPE	VARCHAR(128)	参与活动用户类型
+公司任务表（ICM_TASK_COM）	TASK_ID	VARCHAR(30)	任务编码
+	ORG_CODE	VARCHAR(30)	公司编码
+	REF_ID	VARCHAR(30)	创建任务公司编码
+	REF_NAME	VARCHAR(60)	创建任务公司名称
+	START_DATE	VARCHAR(16)	开始日期
+	END_DATE	VARCHAR(16)	结束日期
+	TASK_TIMES	INTEGER	参加人数
+	IS_POPULAR	CHAR(1)	热门活动
+	IS_RECOMMENDED	CHAR(1)	推荐活动
+	STATUS	CHAR(2)	活动状态
+	PRE_TASK_ID	VARCHAR(30)	前置任务
+	IS_DISPLAY	CHAR(2)	是否在前台显示
+	COM_TASK_DESC	CLOB	公司任务描述
+问卷调查表（ICM_INVESTIGATE）	INVEST_ID	VARCHAR(30)	问卷编码
+	ORG_CODE	VARCHAR(30)	公司编码
+	IS_FROM_BUSI	CHAR(1)	调查来源
+	IS_ENABLE_SCORE	CHAR(1)	是否使用分值
+问卷题目表（ICM_INVEST_ITEM）	INVEST_ID	VARCHAR(30)	问卷编码
+	SUBJECT_ID	VARCHAR(30)	题目ID
+	SUBJECT_TITLE	VARCHAR(256)	题目标题
+	SUBJECT_TYPE	CHAR(1)	题目类型
+	MAX_SELECTION	INTEGER	多选题最多选几项
+	SUBJECT_SCORE	INTEGER	题目可得分数
+	IS_MUST	CHAR(1)	是否必填
+	SUBJECT_CONTENT_TYPE	CHAR(1)	题目内容类型
+	SEQ	INTEGER	题目序号
+	SUBJECT_TIPS	VARCHAR(256)	问题提示
+题目选项表（ICM_INVEST_OPTION）	SUBJECT_ID	VARCHAR(30)	题目ID
+	OPTION_ID	VARCHAR(30)	选项ID
+	OPTION_TITLE	VARCHAR(128)	选项标题
+	IS_ANSWER	CHAR(1)	是否是答案
+	SUBJECT_ID_NEXT	VARCHAR(30)	跳转题目ID
+	SCORE	INTEGER	每道题答对多少分
+	OPTION_IMAGE	VARCHAR(128)	选项图片地址

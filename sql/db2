@@ -1,0 +1,38 @@
+1.添加字段
+
+alter table [table_name] add [column_name] [column_type]
+
+2.更改字段类型
+
+alter table  [table_name] alter column [column_name] set data type  [column_type]
+
+alter table [table_name] alter column Col1 set|drop not null
+
+注意: 更改字段类型是有限制的，如将字段改为比之前类型长度大的可以，如果要改小或者修改小数点长度，必须先drop掉原来的column，然后再重新添加.
+
+例如我要将一个Varchar(10)的column改为Varchar(6) 或者将一个DECIMAL(16, 2)的column改为DECIMAL(16, 4)等，均不能使用上述语句修改，另外改为不同的类型，也需要先drop掉column。
+
+3.去掉字段
+
+alter table [table_name] drop column [column_name]
+
+注意:drop掉字段之后,可能会导致表查询/插入操作不能执行,需要对表进行reorg。
+
+4.为字段添加默认值
+
+alter table [table_name] alter column [column_name] set default [value]
+
+5. 添加带默认值的字段
+
+alter table [table_name] add column [column_name] [column_type] not null with default [value]
+
+6. 设置字段默认时间为当前时间
+
+alter table [table_name] alter column [column_name] set default  current date; 
+
+8、导出到 一个文件获得sql语句 
+db2look -d cqyancao -e -o db.sql -i db2user -w psw 
+		   数据库名       要出文件名   用户名     密码
+            
+--导出ICA的表 DDL /opt/ibm/db2/V9.7/bin
+./db2look -d v6db -tw 'ICA%' -e -o /ica.sql -i db2inst1 -w db2inst1
