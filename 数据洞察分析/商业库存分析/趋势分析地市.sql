@@ -1,0 +1,39 @@
+--各个指标说明：
+--库存=月末库存剩余量
+--存销比=库存/本月销量 
+--断货户数=本月有需求量没有订购量的零售户数 
+--零售户断货率=断货户数/本月有需求量的户数
+--箱=X（查询的数据）*条支比率/箱支比率
+
+SELECT 
+	A.COM_ID--商业公司编码
+	,A.COM_SHORT_NAME--商业公司简称
+	,B.PACK_BAR--条包条形码
+	,B.ITEM_NAME--商品名称
+	,B.X_SIZE--箱支比率
+	,C.DATE1--月份
+	,C.T_SIZE
+	,C.QTY_PURCH--本月购进
+	,C.QTY_EOM--月末库存量
+	,D.CUST_COUNT_NEED--有需求户数
+	,D.CUST_COUNT_ORD--订购户数
+	,D.QTY_ORD--订购量
+FROM
+	ICA_COM A,
+	ICA_ITEM B,
+	SCMR_PI_ITEM_STOCK_MONTH C,
+	SCMR_PI_ITEM_ORD_MONTH D
+WHERE 
+	A.COM_ID='11220701'  
+	AND A.ICOM_ID=B.ICOM_ID 
+	AND B.ICOM_ID='SD0000000000001' 
+	AND B.PACK_BAR='6901028148603'
+	AND C.CCOM_ID=A.COM_ID 
+	AND B.PACK_BAR=C.PACK_BAR 
+	AND C.DATE1<='201608' 
+	AND C.DATE1>='201508'
+	AND C.DATE1=D.DATE1
+	AND D.CCOM_ID=A.COM_ID 
+ORDER BY 
+	DATE1
+

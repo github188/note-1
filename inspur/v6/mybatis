@@ -73,3 +73,7 @@ i、一次线程（即一次请求）对应一次数据库连接的获取与释�
 g、一次数据库会话（SqlSession）可以执行多个sql，数据库会话被spring管理生命周期
 	V6SqlSessionUtil.getSqlSession()
 
+线程 、sqlsession 、事务之间的关系
+
+1、对每一个线程，SqlSessionUtils获取的sqlSession只有一个，即与线程绑定的SqlSessionTemplate的实例(DefaultSqlSession?)；
+	SqlSessionUtils.getSqlSession方法 session = sessionFactory.openSession(executorType);
