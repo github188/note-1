@@ -1,0 +1,24 @@
+1、获取应用列表，从localStorage获取缓存的应用列表信息 路径：/res/src/global/header (同工业管理端 /res/src/global/manage-struct)
+	缓存更新时间对应的功能ID：XSM_APP_LIST
+	缓存的key：xsm_apps_comid_username
+	应用的到的技术点
+		localStorage
+		window.onmessage postMessage （ iframe通信技术 ）
+2、消息
+	缓存的key：xsm_message_unread_SDZY
+	缓存周期为5分钟，EXPIRE_MINUTE配置
+	如果有未读消息则悬浮显示消息内容
+3、我的新商盟
+	用户管理，信息维护，经过一版改造，现在bootstrap风格
+4、宣传位展示
+	根据blockid批量获取数据（将多个请求压缩为一个）
+	根据请求到的信息进行页面渲染
+5、公告
+	路径：/res/src/home/node_modules/index-notice
+	Backbone数据获取展示，对于未读的弹出公告做弹出层展示
+6、品牌展厅
+	进入页面 触发Backbone.history.start进行首次路由
+	When all of your Routers have been created, and all of the routes are set up properly, call Backbone.history.start() to begin monitoring hashchange events
+	点击事件触发hash变化事件-触发路由变化-触发model、view变化渲染页面
+	
+每个应用都部署一套layout widget，里面调用共用的js，实现了多个应用下的复用

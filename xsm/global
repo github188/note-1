@@ -1,0 +1,19 @@
+配置在global.properties相关地址
+	sc=http\://10.10.10.90/scweb
+	ec=http\://10.10.10.90/ecweb
+	st=http\://10.10.10.90/st
+	weibo=http\://10.10.10.46/t
+	infoflow=http\://10.10.10.90/mcweb
+	xsm=http\://10.10.10.46/xsm6
+	crmSource=http\://10.10.10.41/skin/m1351
+	rc=http\://test.xinshangmeng.com/rcserver
+	ac=http\://10.10.10.90/acweb
+	eb=http\://10.10.10.90/ebweb
+	imp=http\://10.10.10.90/imp
+	
+jsp中 用法 ${fn:getEcLink('')}
+
+js中 
+	xsm = require('xsm-require')
+	var Urls = xsm.require('urls')
+	var User = xsm.require('user')

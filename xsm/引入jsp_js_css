@@ -1,0 +1,6 @@
+<website:widget path="shxIndex/gzhHeader.jsp"/> 当前模块下的wedgit路径
+<website:style href="index/index.css"/> 当前应用下的skins目录下的样式
+<website:script src="js/jquery.cookie1.js"/> 当前应用下的skins目录下的js
+<website:screenHolder/> 当前访问的url对应的jsp
+
+转-》global

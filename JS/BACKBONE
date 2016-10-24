@@ -3,3 +3,5 @@ Backbone
 html 纯模板
 Module Collection 纯数据，提供一些数据相关的api
 View 1、根据数据变更渲染页面（使用模板函数，尽量不要操作dom）；2、事件绑定；
+
+
