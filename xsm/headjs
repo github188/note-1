@@ -7,7 +7,9 @@
 2、消息
 	缓存的key：xsm_message_unread_SDZY
 	缓存周期为5分钟，EXPIRE_MINUTE配置
-	如果有未读消息则悬浮显示消息内容
+	如果有未读消息则悬浮显示消息内容 （条数限制在哪里配置？）
+	
+	escapeHtml 转义html代码段
 3、我的新商盟
 	用户管理，信息维护，经过一版改造，现在bootstrap风格
 4、宣传位展示
@@ -16,9 +18,21 @@
 5、公告
 	路径：/res/src/home/node_modules/index-notice
 	Backbone数据获取展示，对于未读的弹出公告做弹出层展示
-6、品牌展厅
+6、品牌展厅 路径：/res/src/sc/brand
+	1、数据分组策略
+	
 	进入页面 触发Backbone.history.start进行首次路由
 	When all of your Routers have been created, and all of the routes are set up properly, call Backbone.history.start() to begin monitoring hashchange events
 	点击事件触发hash变化事件-触发路由变化-触发model、view变化渲染页面
+7、全国销量汇总
+	/res/src/sc/manage/sales-stats
+	
+	导出excel的逻辑可以取imr的导出excle；
+	
+8、跨域设置window.domain=xinshangmeng.com
+
+9、卷烟管理
+	图片上传逻辑;
+	图片删除，上传，命名逻辑；
 	
 每个应用都部署一套layout widget，里面调用共用的js，实现了多个应用下的复用

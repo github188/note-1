@@ -1,0 +1,40 @@
+apply方法能劫持另外一个对象的方法，继承另外一个对象的属性
+	function Person(name,age){   //定义一个类，人类  
+		this.name=name;     //名字  
+		this.age=age;       //年龄 
+		this.sayhello=function(){alert("hello")};
+	} 
+	function Print(){            //显示类的属性 
+		this.funcName="Print"; 
+		this.show=function(){
+			var msg=[];
+			for(var key in this){ 
+				if(typeof(this[key])!="function"){
+					msg.push([key,":",this[key]].join(""));
+				}
+			} 
+			alert(msg.join(" "));
+		};
+	} 
+	function Student(name,age,grade,school){    //学生类 
+		Person.apply(this,arguments);
+		Print.apply(this,arguments);
+		this.grade=grade;                //年级 
+		this.school=school;                 //学校 
+	} 
+	var p1=new Person("jake",10);
+	p1.sayhello();
+	var s1=new Student("tom",13,6,"清华小学");
+	s1.show();
+	s1.sayhello();
+	alert(s1.funcName);
+	
+学生类本来不具备任何方法，但是在Person.apply(this,arguments)后，
+他就具备了Person类的sayhello方法和所有属性。
+
+
+利用Apply的参数数组化
+	Math.max.apply(null,arr);
+	
+	
+call与apply类似，区别是参数不同

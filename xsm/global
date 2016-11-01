@@ -2,18 +2,20 @@
 	sc=http\://10.10.10.90/scweb
 	ec=http\://10.10.10.90/ecweb
 	st=http\://10.10.10.90/st
-	weibo=http\://10.10.10.46/t
-	infoflow=http\://10.10.10.90/mcweb
-	xsm=http\://10.10.10.46/xsm6
-	crmSource=http\://10.10.10.41/skin/m1351
-	rc=http\://test.xinshangmeng.com/rcserver
+	weibo=http\://10.10.10.46/t #泰山用，全国版
+	infoflow=http\://10.10.10.90/mcweb #？ 
+	xsm=http\://10.10.10.46/xsm6 #静态资源基础url
+	crmSource=http\://10.10.10.41/skin/m1351 #不怎么用
+	rc=http\://test.xinshangmeng.com/rcserver #资源中心，不怎么用
 	ac=http\://10.10.10.90/acweb
 	eb=http\://10.10.10.90/ebweb
 	imp=http\://10.10.10.90/imp
 	
 jsp中 用法 ${fn:getEcLink('')}
 
-js中 
+js中
 	xsm = require('xsm-require')
 	var Urls = xsm.require('urls')
 	var User = xsm.require('user')
+	
+不同应用的不同逻辑

@@ -1,0 +1,12 @@
+	//固定列
+	new $.fn.dataTable.FixedColumns( _table, {
+		leftColumns:2
+	});
+	
+	//增加按钮
+	_table.button().add( 0, {
+		action: function ( e, dt, button, config ) {
+			alert('nothing');
+		},
+		text: 'sayHello'
+	});

@@ -3,4 +3,9 @@
 <website:script src="js/jquery.cookie1.js"/> 当前应用下的skins目录下的js
 <website:screenHolder/> 当前访问的url对应的jsp
 
+<website:style>带事件戳；原代码不要改
+<website:xsmStyle>不带时间戳，可自己加hash
+现在都用下面的
+
+路径配置在module.properties
 转-》global
