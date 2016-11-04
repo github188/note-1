@@ -1,0 +1,45 @@
+部署遇到问题：
+	1、修改引入样式使用<%=ip%>的方式被错误地解析
+	2、jsp文件格式改成utf-8无bom格式
+	3、css样式未起作用（暂时把css写入了jsp文件，但是背景图片未获取到）
+
+	4、访问图片报jsp错误 未解决	
+		
+tomcat地址在10.10.10.72  admin?72 | administrator
+端口地址是8115，如果发现有人修改，可以改回8115
+
+1\************************************************************************************************************************
+
+部署需要修改：
+	1、\webapps\sch\WEB-INF下的web.xml文件中的路径信息
+	2、\webapps\sch\WEB-INF\classes下log4j.properties
+
+	
+2\************************************************************************************************************************	
+
+
+配置数据库搜索查询需要修改：
+	1、\webapps\sch\index\conf\data-config.xml，修改查询SQL和字段对应关系
+	2、修改schema.xml字段信息
+修改完需要使用URL刷新索引：
+http://127.0.0.1:8080/sch/index/dataimport?useConf=data-config.xml&model=timer&command=full-import&clear=true&operate=start 
+
+
+3\************************************************************************************************************************
+http://127.0.0.1:8080/sch/index/dataimport?useConf=data-config.xml&model=timer&command=delta-import
+	
+http://localhost/sch/index/select/?q=案件&version=2.2&start=0&rows=10&userId=QklBRE1JTg%3D%3D&orgPath=&type=3&subtp=0&wt=json
+	
+单机访问页面：
+http://127.0.0.1:8080/sch/rminfo.jsp?q=001&version=2.2&start=0&rows=10&userId=QklBRE1JTg%3D%3D&orgPath=&type=3&subtp=0
+
+http://localhost/sch/index/select/?q=案件&version=2.2&start=0&rows=10&userId=QklBRE1JTg%3D%3D&orgPath=&type=3&subtp=0&wt=xml&fq=busitype:CM
+
+http://10.10.10.67/sch/index/dataimport?useConf=data-config.xml&model=timer&command=full-import&clear=true&operate=start 
+
+
+4\************************************************************************************************************************
+72上的访问路径
+http://localhost/sch/index/select?q=案件&version=2.2&start=0&rows=10&userId=QklBRE1JTg%3D%3D&orgPath=&type=3&subtp=0&wt=xml&fq=busitype:CM
+相比之前少了个/线
+？？？

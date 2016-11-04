@@ -1,0 +1,48 @@
+1、追加bin路径到PATH
+2、修改mydefault.ini
+	basedir = D:\mysql-5.6.24-win32
+	datadir = D:\mysql-5.6.24-win32\data
+3、以管理员身份运行cmd（一定要用管理员身份运行，不然权限不够），
+输入：cd C:\Program Files\MySQL\MySQL Server 5.6\bin 进入mysql的bin文件夹(不管有没有配置过环境变量，也要进入bin文件夹，否则之后启动服务仍然会报错误2)
+输入mysqld -install(如果不用管理员身份运行，将会因为权限不够而出现错误：Install/Remove of the Service Denied!)
+4、net start mysql
+5、mysql -u root -p（第一次登录没有密码，直接按回车过）
+**********************************************************************************************************************
+
+show  databases;  //显示所有数据
+use 数据库名;  //进入数据库
+show tables;	//显示所有表
+
+
+**********************************************************************************************************************
+//修改密码 (没起作用)
+set password for 'root'@'localhost' = '';
+update mysql.user set password = '123456' where host = 'localhost' and user = 'root';
+flush privileges;
+
+
+//启动时要用管理员
+**********************************************************************************************************************
+
+**********************************************************************************************************************
+//断电重启
+innodb_force_recovery 参数
+
+根据错误日志中的提示将innodb_force_recovery参数设置成>0的数值加入配置文件my.cnf中
+在[mysqld]组中加入：
+innodb_force_recovery=6 
+innodb_force_recovery参数解释：
+innodb_force_recovery影响整个InnoDB存储引擎的恢复状况，默认值为0，表示当需要恢复时执行所有的恢复操作。
+当不能进行有效的恢复操作时，mysql有可能无法启动，并记录下错误日志。
+
+innodb_force_recovery可以设置为1-6,大的数字包含前面所有数字的影响。
+当设置参数值大于0后，可以对表进行select,create,drop操作,但insert,update或者delete这类操作是不允许的。
+1(SRV_FORCE_IGNORE_CORRUPT):忽略检查到的corrupt页
+2(SRV_FORCE_NO_BACKGROUND):阻止主线程的运行，如主线程需要执行full purge操作，会导致crash
+3(SRV_FORCE_NO_TRX_UNDO):不执行事务回滚操作。
+4(SRV_FORCE_NO_IBUF_MERGE):不执行插入缓冲的合并操作。
+5(SRV_FORCE_NO_UNDO_LOG_SCAN):不查看重做日志，InnoDB存储引擎会将未提交的事务视为已提交。
+6(SRV_FORCE_NO_LOG_REDO):不执行前滚的操作。
+
+
+CREATE DATABASE `test2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci

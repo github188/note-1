@@ -1,0 +1,82 @@
+new关键字做了什么
+
+在JavaScript中，使用new关键字后，意味着做了如下四件事情：
+•创建一个新的对象，这个对象的类型是object；
+•设置这个新的对象的内部、可访问性和[[prototype]]属性为构造函数（指prototype.construtor所指向的构造函数）中设置的；
+•执行构造函数，当this关键字被提及的时候，使用新创建的对象的属性；
+•返回新创建的对象（除非构造方法中返回的是‘无原型’）。
+
+在创建新对象成功之后，如果调用一个新对象没有的属性的时候，JavaScript会延原型链向止逐层查找对应的内容。这类似于传统的‘类继承’。
+
+注意：在第二点中所说的有关[[prototype]]属性，只有在一个对象被创建的时候起作用，比如使用new关键字、使用Object.create、基于字面意义的（函数默认为Function.prototype，数字默认为Number.prototype等）。它只能被Object.getPrototypeOf(someObject)所读取。没有其他任何方式来设置或读取这个值。
+
+样例说明
+ObjMaker = function() {this.a = 'first';};
+
+
+ObjMaker只是一个用于作为构造器的方法，没有其他意义。
+ObjMaker.prototype.b = 'second';
+
+
+与其他函数类似, ObjMaker拥有一个可被我们修改的prototype属性. 我们添加一个属性b给它。与所有对象一样，ObjMaker也拥有一个不可访问的[[prototype]]属性，我们无法对其进行改变。
+obj1 = new ObjMaker();
+
+
+这里发生了三件事情：
+•一个叫obj1的空对象被创建，首先obj1与{}一致；
+•obj1的[[prototype]]属性被设置为ObjMaker的原型属性的拷贝；
+
+•ObjMaker方法被执行，所以obj1.a被设置为‘first‘。
+
+obj1.a;
+
+
+返回'first'。
+obj1.b;
+
+
+obj1没有'b'属性，所以JavaScript在它的[[prototype]]中查找。它的[[prototype]]与ObjMaker.prototype属性一致。而ObjMaker.prototype属性有一个叫'b'的属性，其值为'second'，所以返回'second'。
+
+模仿继承
+
+你可以使用如下的方式实例化ObjMaker类的子类：
+SubObjMaker = function () {};
+SubObjMaker.prototype = new ObjMaker(); 
+
+
+由于这里使用了new关键字，所以SubObjMaker的[[prototype]]属性被设置为ObjMaker.prototype的一个拷贝。
+SubObjMaker.prototype.c = 'third';  
+obj2 = new SubObjMaker();
+
+
+obj2的[[prototype]]属性被设置为SubObjMaker的prototype属性的一个拷贝。
+obj2.c;
+
+
+返回'third'。来自SubObjMaker.prototype
+obj2.b;
+
+
+返回‘second’。来自ObjMaker.prototype
+obj2.a;
+
+
+返回‘first’。来自SubObjMaker.prototype，这是因为SubObjMaker是使用ObjMaker的构造方法创建的，这个构造方法赋值给a。
+
+
+------------------------------------------------------------------------------------------------------------------
+
+
+new是用来实例化一个对象的，new Date()是用来实例化一个事件对象，然后赋值给变量d，this就是这个对象的意思，在js中这个this变化多端，具体参照下面的，不过说实话，作为新手，想通过一两篇文章就想彻底理解this还是省省吧，这要通过很多的练习及思考，楼主不要心急，最好买本书好好看看，现在的人太浮躁了　　Douglas Crockford大师把this古怪的行为解释为和函数的调用模式有关。　　js中有四种调用模式---方法、函数、构造器以及apply调用模式，它们在初始化this时候是不一样的。　　
+
+1)方法模式 简单的说就是使用点表达式或是下标表达式来调用 这里定然是有对象的 这种情况下 this的绑定发生在调用的时候 绑的自然是调它的那个对象了。　　作为方法调用的函数有一个非常重要的属性：在方法体中，用来调用方法的对象成为关键字this的值。
+　　
+2)函数模式 这个就更简单了，函数名加调用运算符（'()'）。不过要小心，这个this绑的可是全局对象，不管你写哪了。（可以理解成  你不给我指明了   我就自己给它加个全局对象）　　当一个函数作为函数调用而不是方法调用时，这个this关键字引用全局对象。容易混淆的是，当一个嵌套的函数（作为函数）在一个包含的函数中调用，而这个包含的函数是作为方法调用的，这也是成立的：this关键字在包含的函数中有一个值，但是它却（不太直观地）引用嵌套的函数体的内部的全局对象。　　
+看个例子吧　　var a = 'global';　　var obj = {　　a : 'local',　　test : function(){　　function test1(){　　alert(this.a);//global　　}　　alert(this.a);//local　　test1();　　}　　};　　obj.test();　　
+/*****************************解决这个问题的方法*****************************/　　
+var a = 'global';　　var obj = {　　a : 'local',　　test : function(){　　var that = this;　　function test1(){　　alert(that.a);//local　　}　　alert(this.a);//local　　test1();　　}　　};　　obj.test();　
+　
+3)构造器调用模式  一句话就是用new来调用的  new的时候this就绑定到新对象上了  比较好理解　　
+	（1）new运算符后面必须跟着一个函数调用。new创建了一个新的没有任何属性的对象，搜索然后调用该构造函数，把新的对象作为this关键字的值传递。　　
+	（2）构造函数通常没有返回值。它们初始化作为this的值来传递的对象，并且没有返回值。但一个构造是允许返回一个对象值，并且如果它这么做，返回的对象成为new表达式的值。在此情况下，作为this的值的对象会被抛弃。可参考jQuery构造函数。　　
+4)apply,call调用模式  apply，call是函数对象的方法，你想把谁绑定到this 就直接把它作为第一个参数传给apply或call就好了。　　ECMAScript规范给所有函数定义了两个方法call()和apply()，使用这两个方法可以像调用其他对象的方法一样调用函数。call()和apply()的第一个参数都是要调用的函数的对象，在函数体内这一参数是关链字this的值。call()的剩余参数是传递给要调用的函数的值。

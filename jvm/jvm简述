@@ -1,0 +1,75 @@
+1、查看编译器生成Class文件字节码内容：javap -verbose CLASSNAME
+2、查看编译器生成Class文件十六制内容：WinHex工具
+
+
+java HelloWorld
+
+命令的时候，JVM会将HelloWorld.class加载到内存中，并形成一个Class的对象HelloWorld.class。
+
+其中的过程就是类加载过程：
+
+1、寻找jre目录，寻找jvm.dll，并初始化JVM；
+
+2、产生一个Bootstrap Loader（启动类加载器）；
+
+3、Bootstrap Loader自动加载Extended Loader（标准扩展类加载器），并将其父Loader设为Bootstrap Loader。
+
+4、Bootstrap Loader自动加载AppClass Loader（系统类加载器），并将其父Loader设为Extended Loader。
+
+5、最后由AppClass Loader加载HelloWorld类。
+
+
+
+
+说明：类文件是一组以8位字节为基础单位的二进制流。各个数据项目严格按照顺序紧凑的排列在Class文件中，中间没有任何分隔符。这样使整个Class文件的内容全部是程序运行的必要数据。
+Class文件的结构不像XML等描述文件，由于它没有任何分隔符所以无论是顺序还是数量，都必须严格限定。
+
+这种存储结构中只有两种数据类型：
+    1）无符号数：基本的数据类型。使用u1、u2、u8来分别代表1个字节、2个字节和8个字节的无符号数。可以用来描述数字、索引引用、数量值、按照UTF-8编码构成字符串值。
+    2）表：由多个无符号数或其他表作为数据项构成的复合数据类型，所有表习惯性的以"_info"结尾
+
+三种特殊字符串的概念：
+    1）全限定名：完整的类路径。如：com.T
+    2）简单名称：方法或字段的名称。如：字段名i，方法名getName
+    3）描述符：用来描述字段的数据类型、修饰符；方法的修饰符、参数列表（包括数量、类型以及顺序）和返回值。
+	
+基本数据类型（byte、char、short、int、float、long、double、boolean）以及代表返回值的void和返回对象都用一个大写字母来表示：
+标识字符	含义	标识字符	含义
+B	基本类型byte	J	基本类型long
+C	基本类型char	S	基本类型short
+D	基本类型double	Z	基本类型boolean
+F	基本类型float	V	特殊类型void
+I	基本类型int	L	对象类型如Ljava/lang/Object 描述方法时，按照先参数列表后返回值的顺序描述。如：
+
+源代码	对应描述符
+void inc();	()V
+int indexOf(char[] source,int sourceOffset,int sourceCount,char[] target);	([CII[C)I
+文件结构：
+1、魔数（Magic Number）：[1-4字节] 唯一的作用是确定这个文件是否是能被虚拟机接收的Class文件。
+2、次版本号（Minor Version）/主版本号（Major Version）：[5-6字节]/[7-8字节] 存储编译Class文件的JDK版本号。主要作用是确定虚拟机加载向下兼容的Class文件。java的版本号从45开始的，JDK1.1以后每个大版本发布，主版本号+1（JDK1.1~JDK1.4使用45~48）。
+例如：
+JDK版本	十六进制版本号	十进制版本号	描述
+JDK 1.1.8	00 03 00 2D	45.3	45是大版本号，3是小版本号
+JDK 1.5.0_11	00 00 00 31	49.0	 
+JDK 1.7.0	00 00 00 33	51.0	 3、常量池（Constant Pool）：于常量池中常量的数量是不固定的，所以常量池的入口需要放置一个u2类型的数据，表示常量池容量的计数值（constant_pool_count）[由9-10字节]。可以理解为Class文件之中的资源仓库，它是Class文件结构中与其他项目资源关联最多的数据类型。常量池中每一项常量都是一个表，具体的结构忽略不写。
+常量池中主要存放两大类常量：
+    1）字面量（Literal）：文本字符串、声明为final的常量值等；
+    2）符号引用（Symbolic Reference）：类和接口的完全限定名（Fully Qualified Name）、字段的名称和描述符（Descriptor）、方法的名称和描述符（包括返回类型、参数列表、static、final、abstract等）
+4、访问标示（access_flags）：[常量池结束后两个字节] 用于识别一些类或接口的访问信息，说白了就是定义了类或接口的描述信息public、abstract、final等。
+5、类索引（this_class）、父类索引（super_class）、接口索引集合（interfaces）：是一组u2类型的数据的集合，由这三项信息确定类的继承关系。
+类索引：确定这个类的全限定名。
+父类索引：确定这个类的父类的全限定名。除了Object之外，所有类的父类索引都不能为0。
+接口索引集合：描述这个类实现了哪些接口。第一项u2类型的数据为接口计数器，表示索引表的容量。如果类没有实现任何接口，计数器值为0，后面接口索引表不占任何字节。
+6、字段表集合（field_info）：用于描述接口或类中声明的变量。包含类级变量（静态变量）和实例级变量（成员变量），不包括方法内部声明的局部变量。包括的信息有：字段的作用域（public、private、protected）修饰符、static修饰符、final修饰符、字段类型、字段名称。
+7、方法表集合（methodref_info）：与字段表集合非常相似。依次包括访问标志、名称索引、描述符索引、属性表集合（attributes）。方法体内代码，经过编译器编译成字节码指令后，存放到方法属性表集合中一个名为“Code”的属性里面。
+8、属性表集合（attribute_info）：Class文件、字段表、方法表都可以携带自己的属性表集合，用来描述某些场景专有信息。
+    1）Code属性：[方法表中] 存放java方法体代码经过编译器编译成的字节码指令。并非所用的方法表里都存在这个属性，如接口或抽象类中的方法。
+    2）Exception属性：[方法表中] 与Code属性平级，作用是列举出方法中可能抛出的异常，也就是throws关键字后面的异常。
+    3）LineNumberTable：[Code属性中] 用于描述java源代码行号与字节码行号之间的对应关系。作用是抛出异常时，在堆栈上能够显示行号，调试程序的时候，按照源代码行来设置断点。
+    4）LocalVariableTable：[Code属性中] 描述栈帧中局部变量表中的变量与源代码中定义的变量关系。作用是引用方法的时候不会丢失参数名称。否则IDE会使用org0、org1之类的代替原有参数名。
+*********************************************************************************************************
+getUserOrganDataPermit
+	1、根据用户管理配置的范围和实例获取ORGAN_ID
+	2、根据功能权限选择的组织机构类型STRU_TYPE过滤功能权限
+关联到的表
+	PUB_USER_DATA、PUB_USER_EMPLOYEE、 PUB_STR PUBPOSITION、 PUB_ORGAN、 V_USER_DATA_PERMIT

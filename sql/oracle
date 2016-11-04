@@ -1,0 +1,208 @@
+cmd 进入oracle命令
+
+sqlplus /nolog
+
+conn jrw/jrw@orcl
+
+create用户
+
+　　sql 代码SQL> create user visiontv identified by visiontv default tablespace visiontv quota 10m on users;
+
+    //创建空间  create tablespace test  datafile 'c:oracleoradataorcl9test.dbf' size 50M  default storage (initial 500K   Next 500K  minextents 1  maxextents unlimited  pctincrease 0);
+
+　　//Oracle创建用户权限//创建用户  create user lxg identified by lxg default tablespace test;  
+
+    //授权　  grant resource,connect,dba to test;
+
+    //删除表空间   drop tablespace "空间名" including contents and datafiles
+	
+　　删除用户 drop user "lxg" cascade
+
+　　增加表空间 alter tablespace chinawater add datafile 'c:oracleoradataorcl9ADDCHINAWATER.dbf' size 200M
+
+　　创建用户 create user userName identified by password;
+
+　　创建用户 userName,密码为 password
+
+
+　　grant dba to lxg;--授予DBA权限  
+
+    grant unlimited tablespace to lxg;--授予不限制的表空间  
+
+    grant select any table to lxg;--授予查询任何表  
+
+    grant select any dictionary to lxg;--授予 查询 任何字典
+
+    grant dba to lxg;  
+
+    grant unlimited tablespace to lxg;  
+
+    grant select any table to lxg;  
+
+    grant select any dictionary to lxg;
+
+
+
+
+    oracle 正在连接的用户不能删除，确实要删除的话
+
+
+
+
+　　1、select sid,serial#,username from v$session where user='USERNAME';
+
+
+
+
+　　2、alter system kill session 'sid,serial#';
+
+
+
+
+　　3、drop user username cascade;
+
+
+
+
+
+
+
+    3.查看用户所拥有的表  select table_name from user_tables; 或  select *from tab;
+
+
+
+
+　　4.查看用户所拥有的视图 select view_name from user_views;
+
+
+
+
+　　5.查看用户所拥有的触发器  select trigger_name from user_triggers;
+
+
+
+
+　　6.查看用户拥有的序列  select sequence_name from user_sequence;
+
+
+
+
+　　7.查看用户拥有的索引  select index_name from user_indexs;
+
+
+
+
+　　8.显示当前用户 show user;
+
+
+
+
+　　9.切换用户  conn scott/tiger;
+
+
+
+
+　　10.将用户赋予某种角色登录  conn scott/tiger as sysdba;
+
+
+
+
+　　11.查看所有用户  conn system/unis;  select username from dba_users;
+
+
+
+
+　　12.查看用户所拥有的权限 select *from session_privs;
+
+
+
+
+　　13.给用户加锁  alter user scott account lock;
+
+
+
+
+　　14.给用户解锁  alter user scott account unlock;
+
+
+
+
+　　15.修改用户密码  alter user zzg identified by zzg123
+
+
+
+
+　　16.新建用户   create user zzg identified by zzg123;
+
+
+
+
+　　17.删除用户及相关对象  drop user zzg cascade;
+
+
+
+
+　　18.给用户赋权(多个采用逗号间隔)  grant create session,create table to zzg;
+
+
+
+
+　　19.分配表空间给用户  alter user zzg default tablespace ts_zzg;
+ ================ORACLE创建实例====================
+  create user local_twsms identified by local_twsms;
+  grant dba to local_twsms;--授予DBA权限  
+   grant unlimited tablespace to local_twsms;--授予不限制的表空间  
+   grant select any table to local_twsms;--授予查询任何表  
+   grant select any dictionary to local_twsms;--授予 查询 任何字典
+  grant dba to local_twsms;  
+   grant unlimited tablespace to local_twsms;  
+   grant select any table to local_twsms;  
+   grant select any dictionary to local_twsms;
+   grant create session,create table to local_twsms;
+ ==================================================
+
+
+
+
+
+创建表空间 表空间的管理分文件系统和自动存储管理（ASM）
+
+1.文件系统
+先查看一下数据文件的目录：
+select tablespace_name,file_id,file_name,autoextensible,
+ round(bytes/1024/1024/1024,3) "used(G)",round(maxbytes/1024/1024/1024,3) "size(G)" 
+ from dba_data_files order by tablespace_name;
+在操作系统上查看可用存储的大小：df -h
+创建表空间
+create tablespace  tbs_name datafile '/dba/oradata/ORADEV/datafile/tbs_name01.dbf' size 100m autoextend on next 100m;
+表空间不足，添加数据文件（需检测可用存储，以防撑爆空间）
+alter tablespace  tbs_name add datafile '/dba/oradata/ORADEV/datafile/tbs_name01.dbf' size 100m autoextend on next 100m;
+
+注：默认虚拟机环境不使用这种管理方式，下面操作过程只做知识扩展使用
+2.自动存储管理，数据文件的路径是以+DATA_DG开头的
+查看存储的可用空间（即free_GB的大小）：
+select name,total_mb/1024 total_GB,free_mb/1024 free_GB,to_char(round((total_mb-free_mb)/total_mb*100,2),'99.99')||'%' usage from v$asm_diskgroup;
+创建表空间：
+create tablespace tbs_name datafile '+data_dg' size 100m autoextend on next 100m;
+表空间不足，添加数据文件（需检测可用存储，以防撑爆空间）
+alter tablespace tbs_name add datafile '+data_dg' size 100m autoextend on next 100m; 
+创建用户 1.创建用户
+create user user_name identified by "user_password"
+ default tablespace tbs_name
+temporary tablespace temp profile DEFAULT;
+
+2.授权
+grant connect to  user_name;
+ grant create indextype to user_name;
+ grant create job to user_name;
+ grant create materialized view to user_name;
+ grant create procedure to user_name;
+grant create public synonym to  user_name;
+ grant create sequence to user_name;
+ grant create session to user_name;
+ grant create table to user_name;
+ grant create trigger to user_name;
+grant create type to  user_name;
+ grant create view to user_name;
+ grant unlimited tablespace to user_name;
+ alter user user_name quota unlimited on tbs_name; 

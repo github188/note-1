@@ -346,75 +346,75 @@ ORS   输出记录分隔符
 
 
 10、awk '{$1 == 'Chi' {$3 = 'China'; print}' file        找到匹配行后先将第3个域替换后再显示该行（记录）。 
-    awk '{$7 %= 3; print $7}'  file           将第7域被3除，并将余数赋给第7域再打印。 
+	awk '{$7 %= 3; print $7}'  file           将第7域被3除，并将余数赋给第7域再打印。 
 
 
 11、awk '/tom/ {wage=$2+$3; printf wage}' file          找到匹配行后为变量wage赋值并打印该变量。
 
 
 12、awk '/tom/ {count++;}  
-         END {print "tom was found "count" times"}' file            END表示在所有输入行处理完后进行处理。 
+		 END {print "tom was found "count" times"}' file            END表示在所有输入行处理完后进行处理。 
 
 
 13、awk 'gsub(/\$/,"");gsub(/,/,""); cost+=$4; 
-         END {print "The total is $" cost>"filename"}'    file             gsub函数用空串替换$和,再将结果输出到filename中。 
-    1 2 3 $1,200.00 
-    1 2 3 $2,300.00 
-    1 2 3 $4,000.00 
+		 END {print "The total is $" cost>"filename"}'    file             gsub函数用空串替换$和,再将结果输出到filename中。 
+	1 2 3 $1,200.00 
+	1 2 3 $2,300.00 
+	1 2 3 $4,000.00 
 
-    awk '{gsub(/\$/,"");gsub(/,/,""); 
-    if ($4>1000&&$4<2000) c1+=$4; 
-    else if ($4>2000&&$4<3000) c2+=$4; 
-    else if ($4>3000&&$4<4000) c3+=$4; 
-    else c4+=$4; } 
-    END {printf  "c1=[%d];c2=[%d];c3=[%d];c4=[%d]\n",c1,c2,c3,c4}"' file 
-    通过if和else if完成条件语句 
+	awk '{gsub(/\$/,"");gsub(/,/,""); 
+	if ($4>1000&&$4<2000) c1+=$4; 
+	else if ($4>2000&&$4<3000) c2+=$4; 
+	else if ($4>3000&&$4<4000) c3+=$4; 
+	else c4+=$4; } 
+	END {printf  "c1=[%d];c2=[%d];c3=[%d];c4=[%d]\n",c1,c2,c3,c4}"' file 
+	通过if和else if完成条件语句 
 
-    awk '{gsub(/\$/,"");gsub(/,/,""); 
-    if ($4>3000&&$4<4000) exit; 
-    else c4+=$4; } 
-    END {printf  "c1=[%d];c2=[%d];c3=[%d];c4=[%d]\n",c1,c2,c3,c4}"' file 
-    通过exit在某条件时退出，但是仍执行END操作。 
-    awk '{gsub(/\$/,"");gsub(/,/,""); 
-    if ($4>3000) next; 
-    else c4+=$4; } 
-    END {printf  "c4=[%d]\n",c4}"' file 
-    通过next在某条件时跳过该行，对下一行执行操作。 
+	awk '{gsub(/\$/,"");gsub(/,/,""); 
+	if ($4>3000&&$4<4000) exit; 
+	else c4+=$4; } 
+	END {printf  "c1=[%d];c2=[%d];c3=[%d];c4=[%d]\n",c1,c2,c3,c4}"' file 
+	通过exit在某条件时退出，但是仍执行END操作。 
+	awk '{gsub(/\$/,"");gsub(/,/,""); 
+	if ($4>3000) next; 
+	else c4+=$4; } 
+	END {printf  "c4=[%d]\n",c4}"' file 
+	通过next在某条件时跳过该行，对下一行执行操作。 
 
 
 14、awk '{ print FILENAME,$0 }' file1 file2 file3>fileall              把file1、file2、file3的文件内容全部写到fileall中，格式为 
-    打印文件并前置文件名。 
+	打印文件并前置文件名。 
 
 
 15、awk ' $1!=previous { close(previous); previous=$1 }    
-    {print substr($0,index($0," ") +1)>$1}' fileall           把合并后的文件重新分拆为3个文件。并与原文件一致。 
+	{print substr($0,index($0," ") +1)>$1}' fileall           把合并后的文件重新分拆为3个文件。并与原文件一致。 
 
 
 16、awk 'BEGIN {"date"|getline d; print d}'         通过管道把date的执行结果送给getline，并赋给变量d，然后打印。  
 
 
 17、awk 'BEGIN {system("echo \"Input your name:\\c\""); getline d;print "\nYour name is",d,"\b!\n"}' 
-    通过getline命令交互输入name，并显示出来。 
-    awk 'BEGIN {FS=":"; while(getline< "/etc/passwd" >0) { if($1~"050[0-9]_") print $1}}' 
-    打印/etc/passwd文件中用户名包含050x_的用户名。 
+	通过getline命令交互输入name，并显示出来。 
+	awk 'BEGIN {FS=":"; while(getline< "/etc/passwd" >0) { if($1~"050[0-9]_") print $1}}' 
+	打印/etc/passwd文件中用户名包含050x_的用户名。 
 
 18、awk '{ i=1;while(i<NF) {print NF,$i;i++}}' file 通过while语句实现循环。 
-    awk '{ for(i=1;i<NF;i++) {print NF,$i}}'   file 通过for语句实现循环。     
-    type file|awk -F "/" ' 
-    { for(i=1;i<NF;i++) 
-    { if(i==NF-1) { printf "%s",$i } 
-    else { printf "%s/",$i } }}'               显示一个文件的全路径。 
-    用for和if显示日期 
-    awk  'BEGIN { 
+	awk '{ for(i=1;i<NF;i++) {print NF,$i}}'   file 通过for语句实现循环。     
+	type file|awk -F "/" ' 
+	{ for(i=1;i<NF;i++) 
+	{ if(i==NF-1) { printf "%s",$i } 
+	else { printf "%s/",$i } }}'               显示一个文件的全路径。 
+	用for和if显示日期 
+	awk  'BEGIN { 
 for(j=1;j<=12;j++) 
 { flag=0; 
   printf "\n%d月份\n",j; 
-        for(i=1;i<=31;i++) 
-        { 
-        if (j==2&&i>28) flag=1; 
-        if ((j==4||j==6||j==9||j==11)&&i>30) flag=1; 
-        if (flag==0) {printf "%02d%02d ",j,i} 
-        } 
+		for(i=1;i<=31;i++) 
+		{ 
+		if (j==2&&i>28) flag=1; 
+		if ((j==4||j==6||j==9||j==11)&&i>30) flag=1; 
+		if (flag==0) {printf "%02d%02d ",j,i} 
+		} 
 } 
 }' 
 
@@ -427,7 +427,7 @@ awk '{print  "$Flag"}'   结果为$Flag
 ===============================
 
 
-    $awk 'BEGIN{total=0}{total+=$4}END{print total}' a.txt   -----对a.txt文件的第四个域进行求和！
+	$awk 'BEGIN{total=0}{total+=$4}END{print total}' a.txt   -----对a.txt文件的第四个域进行求和！
 
 
 
@@ -902,10 +902,10 @@ awk中的条件语句是从C语言中借鉴过来的，可控制程序的流程�
 
 14.5.1. if 语句
 格式：
-        {if (expression){
-                   statement; statement; ...
-                     }
-        }
+		{if (expression){
+				   statement; statement; ...
+					 }
+		}
 
 $ awk '{if ($1 <$2) print $2 "too high"}' test。如果第一个域小于第二个域则打印。
 
@@ -917,13 +917,13 @@ $ awk '{if ($1 < $2) {count++; print "ok"}}' test.如果第一个域小于第二
 
 14.5.2. if/else语句，用于双重判断
 格式：
-        {if (expression){
-                   statement; statement; ...
-                       }
-        else{
-                   statement; statement; ...
-                       }
-        }
+		{if (expression){
+				   statement; statement; ...
+					   }
+		else{
+				   statement; statement; ...
+					   }
+		}
 
 $ awk '{if ($1 > 100) print $1 "bad" ; else print "ok"}' test。如果$1大于100则打印$1 bad,否则打印ok。
 
@@ -935,19 +935,19 @@ $ awk '{if ($1 > 100){ count++; print $1} else {count--; print $2}' test。如�
 
 14.5.3. if/else else if语句，用于多重判断。
 格式：
-        {if (expression){
-                    statement; statement; ...
-                   }
-        else if (expression){
-                    statement; statement; ...
-                   }
-        else if (expression){
-                    statement; statement; ...
-                   }
-        else {
-                   statement; statement; ...
-             }
-        }
+		{if (expression){
+					statement; statement; ...
+				   }
+		else if (expression){
+					statement; statement; ...
+				   }
+		else if (expression){
+					statement; statement; ...
+				   }
+		else {
+				   statement; statement; ...
+			 }
+		}
 
 
 
@@ -967,17 +967,17 @@ $ awk '{if ($1 > 100){ count++; print $1} else {count--; print $2}' test。如�
 
 •bread continue 语句。break用于在满足条件的情况下跳出循环；continue用于在满足条件的情况下忽略后面的语句，直接返回循环的顶端。如：
 {for ( x=3; x<=NF; x++) 
-            if ($x<0){print "Bottomed out!"; break}}
+			if ($x<0){print "Bottomed out!"; break}}
 {for ( x=3; x<=NF; x++)
-            if ($x==0){print "Get next item"; continue}}
-      
+			if ($x==0){print "Get next item"; continue}}
+	  
 
 
 •next 语句从输入文件中读取一行，然后从头开始执行awk脚本。如：
 {if ($1 ~/test/){next}
-    else {print}
+	else {print}
 }
-     
+	 
 
 
 •exit 语句用于结束awk程序，但不会略过END块。退出状态为0代表成功，非零值表示出错。
@@ -1003,8 +1003,8 @@ awk中的数组的下标可以是数字和字母，称为关联数组。
 
 •special for 循环用于读取关联数组中的元素。格式如下：
 {for (item in arrayname){
-         print arrayname[item]
-         }
+		 print arrayname[item]
+		 }
 }
 
 $ awk '/^tom/{name[NR]=$1}; END{for(i in name){print name[i]}}' test。打印有值的数组元素。打印的顺序是随机的。
@@ -1032,13 +1032,13 @@ $ awk '/^tom/{name[NR]=$1}; END{for(i in name){print name[i]}}' test。打印有
 
 
 •sub 函数匹配记录中最大、最靠左边的子字符串的正则表达式，并用替换字符串替换这些字符串。如果没有指定目标字符串就默认使用整个记录。替换只发生在第一次匹配的时候。格式如下：
-            sub (regular expression, substitution string):
-            sub (regular expression, substitution string, target string)
+			sub (regular expression, substitution string):
+			sub (regular expression, substitution string, target string)
 
 
 实例：
-            $ awk '{ sub(/test/, "mytest"); print }' testfile
-            $ awk '{ sub(/test/, "mytest"); $1}; print }' testfile
+			$ awk '{ sub(/test/, "mytest"); print }' testfile
+			$ awk '{ sub(/test/, "mytest"); $1}; print }' testfile
 
 
 第一个例子在整个记录中匹配，替换只发生在第一次匹配发生的时候。如要在整个文件中进行匹配需要用到gsub
@@ -1047,13 +1047,13 @@ $ awk '/^tom/{name[NR]=$1}; END{for(i in name){print name[i]}}' test。打印有
 
 
 •gsub 函数作用如sub，但它在整个文档中进行匹配。格式如下：
-            gsub (regular expression, substitution string)
-            gsub (regular expression, substitution string, target string)
+			gsub (regular expression, substitution string)
+			gsub (regular expression, substitution string, target string)
 
 
 实例：
-            $ awk '{ gsub(/test/, "mytest"); print }' testfile
-            $ awk '{ gsub(/test/, "mytest" , $1) }; print }' testfile
+			$ awk '{ gsub(/test/, "mytest"); print }' testfile
+			$ awk '{ gsub(/test/, "mytest" , $1) }; print }' testfile
 
 
 第一个例子在整个文档中匹配test，匹配的都被替换成mytest。
@@ -1062,24 +1062,24 @@ $ awk '/^tom/{name[NR]=$1}; END{for(i in name){print name[i]}}' test。打印有
 
 
 •index 函数返回子字符串第一次被匹配的位置，偏移量从位置1开始。格式如下：
-          index(string, substring)
+		  index(string, substring)
 
 
 实例：
-            $ awk '{ print index("test", "mytest") }' testfile
+			$ awk '{ print index("test", "mytest") }' testfile
 
 
 实例返回test在mytest的位置，结果应该是3。
 
 
 •length 函数返回记录的字符数。格式如下：
-            length( string )
-            length
+			length( string )
+			length
 
 
 实例：
-            $ awk '{ print length( "test" ) }' 
-            $ awk '{ print length }' testfile
+			$ awk '{ print length( "test" ) }' 
+			$ awk '{ print length }' testfile
 
 
 第一个实例返回test字符串的长度。
@@ -1088,24 +1088,24 @@ $ awk '/^tom/{name[NR]=$1}; END{for(i in name){print name[i]}}' test。打印有
 
 
 •substr 函数返回从位置1开始的子字符串，如果指定长度超过实际长度，就返回整个字符串。格式如下：
-            substr( string, starting position )
-            substr( string, starting position, length of string )
+			substr( string, starting position )
+			substr( string, starting position, length of string )
 
 
 实例：
-            $ awk '{ print substr( "hello world", 7,11 ) }' 
+			$ awk '{ print substr( "hello world", 7,11 ) }' 
 
 
 上例截取了world子字符串。
 
 
 •match 函数返回在字符串中正则表达式位置的索引，如果找不到指定的正则表达式则返回0。match函数会设置内建变量RSTART为字符串中子字符串的开始位置，RLENGTH为到子字符串末尾的字符个数。substr可利于这些变量来截取字符串。函数格式如下：
-            match( string, regular expression )
+			match( string, regular expression )
 
 
 实例：
-            $ awk '{start=match("this is a test",/[a-z]+$/); print start}'
-            $ awk '{start=match("this is a test",/[a-z]+$/); print start, RSTART, RLENGTH }'
+			$ awk '{start=match("this is a test",/[a-z]+$/); print start}'
+			$ awk '{start=match("this is a test",/[a-z]+$/); print start, RSTART, RLENGTH }'
 
 
 第一个实例打印以连续小写字符结尾的开始位置，这里是11。
@@ -1114,22 +1114,22 @@ $ awk '/^tom/{name[NR]=$1}; END{for(i in name){print name[i]}}' test。打印有
 
 
 •toupper 和tolower 函数可用于字符串大小间的转换，该功能只在gawk中有效。格式如下：
-            toupper( string )
-            tolower( string )
+			toupper( string )
+			tolower( string )
 
 
 实例：
-            $ awk '{ print toupper("test"), tolower("TEST") }'
+			$ awk '{ print toupper("test"), tolower("TEST") }'
 
 
 
 •split 函数可按给定的分隔符把字符串分割为一个数组。如果分隔符没提供，则按当前FS值进行分割。格式如下：
-            split( string, array, field separator )
-            split( string, array )
+			split( string, array, field separator )
+			split( string, array )
 
 
 实例：
-            $ awk '{ split( "20:18:00", time, ":" ); print time[2] }'
+			$ awk '{ split( "20:18:00", time, ":" ); print time[2] }'
 
 
 上例把时间按冒号分割到time数组内，并显示第二个数组元素18。
@@ -1143,16 +1143,16 @@ $ awk '/^tom/{name[NR]=$1}; END{for(i in name){print name[i]}}' test。打印有
 
 
 •systime函数返回从1970年1月1日开始到当前时间(不计闰年)的整秒数。格式如下：
-            systime()
+			systime()
 
 
 实例：
-            $ awk '{ now = systime(); print now }'
+			$ awk '{ now = systime(); print now }'
 
 
 
 •strftime函数使用C库中的strftime函数格式化时间。格式如下：
-            systime( [format specification][,timestamp] )
+			systime( [format specification][,timestamp] )
 
 
  
@@ -1193,8 +1193,8 @@ Table 3. 日期和时间格式说明符
 %% 百分号(%) 
 
 实例：
-            $ awk '{ now=strftime( "%D", systime() ); print now }'
-            $ awk '{ now=strftime("%m/%d/%y"); print now }'
+			$ awk '{ now=strftime( "%D", systime() ); print now }'
+			$ awk '{ now=strftime("%m/%d/%y"); print now }'
 
 
 
@@ -1235,10 +1235,10 @@ rand() 产生一个大于等于0而小于1的随机数
 14.8.4. 自定义函数
 
 在awk中还可自定义函数，格式如下：
-        function name ( parameter, parameter, parameter, ... ) {
-                        statements
-                        return expression                  # the return statement and expression are optional
-        }
+		function name ( parameter, parameter, parameter, ... ) {
+						statements
+						return expression                  # the return statement and expression are optional
+		}
 
 
 
