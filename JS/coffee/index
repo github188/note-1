@@ -1,0 +1,15 @@
+CoffeeScript
+
+1. CoffeeScript只将JavaScript中好的部分暴露给开发者，这可以大大减少开发人员使用JavaScript时一些易错的点（包括一些JS语言本身不太好的地方）
+2. CoffeeScript借鉴了不少Python与Ruby的特点，尤其是Ruby，相信熟悉Ruby的开发人员很快就能上手。 
+3. 也正因借鉴至Python及Ruby的特点，相对来说，CoffeeScript完成同样的任务代码量要小不少。
+4. 通过coffee编译生成的JS文件通常是经过优化了的，而且可读性也很不错，通过阅读生成的JS代码反过来对于学习JS也很有帮助。
+链接：https://www.zhihu.com/question/19626757/answer/14309007
+
+
+CoffeeScript 的作者带给我们声明式的语法。函数式 (functional) 编程是声明式 (declarative) 编程的一种方式。所以使用 CoffeeScript 我们可以体会这些编程泛型的表达方式，减少副作用。这是学习 CoffeeScript 最大的意义。减少逗号、括弧这些只是增强表达能力的一些副作用而已（这句话只是玩笑）。CoffeeScript 的很多语法，list-comprehension, ranging, destructive-assignment, every statements has return 都是从声明式语言里面学习的概念（尤其是 Haskell）。
+链接：https://www.zhihu.com/question/20833518/answer/16365711
+
+
+coffee代码规范
+https://github.com/polarmobile/coffeescript-style-guide
