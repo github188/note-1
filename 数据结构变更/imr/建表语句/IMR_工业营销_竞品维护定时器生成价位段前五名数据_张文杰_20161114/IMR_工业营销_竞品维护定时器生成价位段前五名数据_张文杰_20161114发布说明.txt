@@ -1,0 +1,7 @@
+1、竟品维护数据来源有一部分来自定时器，请按照如下说明配置定时器
+	
+	名称：		工业竟品价位段前五名计算定时器
+	服务类型：	远程服务
+	服务名：	com.v6.imr.pc.manager.itemcompete.IItemCompeteCalcDomain
+	方法名：	doCalc
+	执行时间：	每月1号	分00 时00 天01 月* 周 * 

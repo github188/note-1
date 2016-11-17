@@ -1,0 +1,4 @@
+打开并读取文件的几种方式
+	fs.createReadStream()
+	fs.open() fs.read()
+	fs.readFile()

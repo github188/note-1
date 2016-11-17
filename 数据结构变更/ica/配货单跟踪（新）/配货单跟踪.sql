@@ -33,3 +33,21 @@ VALUES('ICA_CO_STATUS', '08', '审核不通过', '配货单状态');
 INSERT INTO BASE_DICT
 (DICT_ID, DICT_KEY, DICT_VALUE, DICT_DESC)
 VALUES('ICA_CO_STATUS', '09', '已分解', '配货单状态');
+
+
+
+INSERT INTO PUB_FUNCTIONS
+(FUNCTION_CODE, FUNCTION_NAME, MODULE_CODE, SEQ, ORGAN_TYPE, IS_MENU, URL, ICON, F_TYPE, TARGET, CP_MENU_ID, DESCRIPTION, STRU_TYPE)
+VALUES('ica_disttrackingnew', '配货单跟踪（新）', 'ica_trackingM', 0, '6701', '1', '/tracking/disttracking.cmd?method=forTrackingNew', '', '0', NULL, 1001, NULL, '11');
+
+
+
+INSERT INTO PUB_OPERATIONS
+(OPERATION_CODE, OPERATION_NAME, FUNCTION_CODE, OPERATION_TYPE_CODE, IS_DEFAULT, SEQ)
+VALUES('ica_trackingnew', '配货单跟踪', 'ica_disttrackingnew', '00', '1', 0);
+
+
+
+INSERT INTO PUB_URLS
+(URL_CODE, URL_NAME, URL_CONTENT, OPERATION_CODE, FUNCTION_CODE, ACCESS_TYPE, NOTE, SEQ)
+VALUES('ee81505726812701583c62b5420077', '配货单跟踪', '/tracking/disttracking.cmd?method=forTrackingNew', 'ica_trackingnew', 'ica_disttrackingnew', 'http', NULL, 0);
