@@ -1,0 +1,41 @@
+1、extend 将其它样式扩展到自身
+	nav ul {
+	&:extend(.inline);
+		background: blue;
+	}
+	.inline {
+		color: red;
+	}
+
+		|
+		|
+		V
+
+	nav ul {
+		background: blue;
+	}
+	.inline,
+	nav ul {
+		color: red;
+	}
+	
+2、语法格式：
+	.a:extend(.b) {}
+	
+			|
+			|
+			V
+ 
+	.a {
+		&:extend(.b);
+	}
+	
+	.c:extend(.d all)能扩展所有的.d.x样式
+	.c:extend(.d, .f)能扩展 .d .f样式
+	
+3、选择器应用
+	.big-division,
+	.big-bag:extend(.bag),
+	.big-bucket:extend(.bucket) {
+		// body
+	}

@@ -1,0 +1,86 @@
+1、mixin引用已经存在的样式
+	&符号代表父选择器
+	格式 .a 或者 .a()
+2、被maixin应用的样式可以不输出通过
+	.a(){}的方式定义
+3、命名空间
+Namespaces
+	#outer {
+		.inner {
+			color: red;
+		}
+	}
+
+	.c {
+		#outer > .inner;
+	}
+	and again both > and whitespace are optional
+
+	// all do the same thing
+	#outer > .inner;
+	#outer > .inner();
+	#outer .inner;
+	#outer .inner();
+	#outer.inner;
+	#outer.inner();
+
+	//当条件满足时，才生效；如果条件不满足使用了，会报错
+	#namespace when (@mode=huge) {
+		.mixin() { /* */ }
+	}
+	等价与
+	#namespace {
+		.mixin() when (@mode=huge) { /* */ }
+	}
+	
+	!important 关键字引用的mixin 表示所有的属性都是 !important的
+4、传参
+	声明mixin的参数（默认值 @radius : 5px）
+	.border-radius(@radius) {
+		-webkit-border-radius: @radius;
+			-moz-border-radius: @radius;
+				border-radius: @radius;
+	}
+	调用
+	#header {
+		.border-radius(4px);
+	}
+	.button {
+		.border-radius(6px);
+	}
+	
+	多个参数
+	.mixin(@color: black; @margin: 10px; @padding: 20px) {
+		color: @color;
+		margin: @margin;
+		padding: @padding;
+	}
+	.class1 {
+		.mixin(@margin: 20px; @color: #33acfe);
+	}
+	.class2 {
+		.mixin(#efca44; @padding: 40px);
+	}
+5、循环
+	.generate-columns(4);
+
+	.generate-columns(@n, @i: 1) when (@i =< @n) {
+		.column-@{i} {
+			width: (@i * 100% / @n);
+		}
+		.generate-columns(@n, (@i + 1));
+	}
+	Output:
+
+	.column-1 {
+		width: 25%;
+	}
+	.column-2 {
+		width: 50%;
+	}
+	.column-3 {
+		width: 75%;
+	}
+	.column-4 {
+		width: 100%;
+	}

@@ -1,0 +1,11 @@
+1、事件机制
+	SlickGrid使用观察者模式，对外暴露的接口是subscribe（订阅）添加观察者
+	grid.OnSomeEvent.subscribe( function( EventData, data ){} )
+	
+	目标物件：grid
+	观察者物件：EventHandle
+2、核心思路
+	初始化表格框架->
+	渲染表格可视高度的内容->
+	滚动后计算滚动后的高度，渲染表格可视层的表格内容
+	
