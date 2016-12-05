@@ -1,0 +1,7 @@
+1.SpringMVC与Struts2区别，哪个更灵活
+2.SpringMVC获取Json和xml，怎么知道页面需要xml或者json
+	@RequestMapping(value = "/upload",produces="application/json;charset=UTF-8")
+	jquery ajax 的 dataType选项，会将返回的值转换成声明的数据类型，详见 ajaxHandleResponses
+2.aop切面编程、控制反转
+3.js声明对象
+4.mybatis事务控制，父表子表数据获取
