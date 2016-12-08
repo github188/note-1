@@ -1,0 +1,2 @@
+模板数据由各个工业提供，由系统管理员录入，对应的数据表为
+	ICA_SUPPLY_FEEDBACK_TEMPLATE

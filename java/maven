@@ -1,28 +1,28 @@
 一、 创建工程
-    1. 创建 App 工程
-      mvn archetype:create -DgroupId=ce.demo.mvn -DartifactId=app
-    2. 创建 webApp 工程
-       D:\>mvn archetype:create -DgroupId=ce.demo.mvn-DartifactId=webapp -DarchetypeArtifactId=maven-archetype-webapp
+	1. 创建 App 工程
+	  mvn archetype:create -DgroupId=ce.demo.mvn -DartifactId=app
+	2. 创建 webApp 工程
+		D:\>mvn archetype:create -DgroupId=ce.demo.mvn-DartifactId=webapp -DarchetypeArtifactId=maven-archetype-webapp
 
 二、关键字
-   Project：任何您想build的事物，Maven都可以认为它们是工程。这些工程被定义为工程对象模型(POM，Poject ObjectModel)。一个工程可以依赖其它的工程；一个工程也可以由多个子工程构成。
-   POM：POM(pom.xml)是Maven的核心文件，它是指示Maven如何工作的元数据文件，类似于Ant中的build.xml文件。POM文件位于每个工程的根目录中。
-   GroupId：groupId是一个工程的在全局中唯一的标识符，一般地，它就是工程名。groupId有利于使用一个完全的包名，将一个工程从其它有类似名称的工程里区别出来。
-   Artifact：artifact是工程将要产生或需要使用的文件，它可以是jar文件，源文件，二进制文件，war文件，甚至是pom文件。每个artifact都由groupId和artifactId组合的标识符唯一识别。需要被使用(依赖)的artifact都要放在仓库(见Repository)中，否则Maven无法找到(识别)它们。
-   Dependency：为了能够build或运行，一个典型的Java工程会依赖其它的包。在Maven中，这些被依赖的包就被称为dependency。dependency一般是其它工程的artifact。
-   Plug-in：Maven是由插件组织的，它的每一个功能都是由插件提供的。插件提供goal(类似于Ant中的target)，并根据在POM中找到的元数据去完成工作。主要的Maven插件要是由Java写成的，但它也支持用Beanshell或Ant脚本写成的插件。
-   Repository：仓库用于存放artifact，它可以是本地仓库，也可以是远程仓库。Maven有一个默认的远程仓库--central，可以从http://www.ibiblio.org/maven/下载其中的artifact。在Windows平台上，本地仓库的默认地址是User_Home".m2"repository。
-   Snapshot：工程中可以(也应该)有一个特殊版本，它的版本号包括SNAPSHOT字样。该版本可以告诉Maven，该工程正处于开发阶段，会经常更新(但还未发布)。当其它工程使用此类型版本的artifact时，Maven会在仓库中寻找该artifact的最新版本，并自动下载、使用该最新版。
+	Project：任何您想build的事物，Maven都可以认为它们是工程。这些工程被定义为工程对象模型(POM，Poject ObjectModel)。一个工程可以依赖其它的工程；一个工程也可以由多个子工程构成。
+	POM：POM(pom.xml)是Maven的核心文件，它是指示Maven如何工作的元数据文件，类似于Ant中的build.xml文件。POM文件位于每个工程的根目录中。
+	GroupId：groupId是一个工程的在全局中唯一的标识符，一般地，它就是工程名。groupId有利于使用一个完全的包名，将一个工程从其它有类似名称的工程里区别出来。
+	Artifact：artifact是工程将要产生或需要使用的文件，它可以是jar文件，源文件，二进制文件，war文件，甚至是pom文件。每个artifact都由groupId和artifactId组合的标识符唯一识别。需要被使用(依赖)的artifact都要放在仓库(见Repository)中，否则Maven无法找到(识别)它们。
+	Dependency：为了能够build或运行，一个典型的Java工程会依赖其它的包。在Maven中，这些被依赖的包就被称为dependency。dependency一般是其它工程的artifact。
+	Plug-in：Maven是由插件组织的，它的每一个功能都是由插件提供的。插件提供goal(类似于Ant中的target)，并根据在POM中找到的元数据去完成工作。主要的Maven插件要是由Java写成的，但它也支持用Beanshell或Ant脚本写成的插件。
+	Repository：仓库用于存放artifact，它可以是本地仓库，也可以是远程仓库。Maven有一个默认的远程仓库--central，可以从http://www.ibiblio.org/maven/下载其中的artifact。在Windows平台上，本地仓库的默认地址是User_Home".m2"repository。
+	Snapshot：工程中可以(也应该)有一个特殊版本，它的版本号包括SNAPSHOT字样。该版本可以告诉Maven，该工程正处于开发阶段，会经常更新(但还未发布)。当其它工程使用此类型版本的artifact时，Maven会在仓库中寻找该artifact的最新版本，并自动下载、使用该最新版。
 
 
 三、常用命令
-   1.mvn clean –消除工程(包括所有子工程)中产生的所有输出。这本文的实例中，实际上是删除target目录。由于之前的操作只有app工程产生了target目录，而webapp并没有，所以将只会删除app工程中的target目录。
-   2.mvn package –将工程制作成相应的包，app工程是作成jar包(app-1.0.jar)，webapp工程是作成war包(webapp-1.0.war)。打开webapp-1.0.war包，可以发现app-1.0.jar被放到了WEB-INF的lib目录中。
-   3.创建Maven项目：mvn archetype:create
-   4.编译源代码：mvn compile
-   5.编译测试代码：mvn test-compile
-   6.运行测试：mvn test
-   7.产生site：mvn site
-   8.打包：mvn package
-   9.在本地Repository中安装jar：mvn install
-   10. mvn eclipse:eclipse ：生成 Eclipse 项目文件
+	1.mvn clean –消除工程(包括所有子工程)中产生的所有输出。这本文的实例中，实际上是删除target目录。由于之前的操作只有app工程产生了target目录，而webapp并没有，所以将只会删除app工程中的target目录。
+	2.mvn package –将工程制作成相应的包，app工程是作成jar包(app-1.0.jar)，webapp工程是作成war包(webapp-1.0.war)。打开webapp-1.0.war包，可以发现app-1.0.jar被放到了WEB-INF的lib目录中。
+	3.创建Maven项目：mvn archetype:create
+	4.编译源代码：mvn compile
+	5.编译测试代码：mvn test-compile
+	6.运行测试：mvn test
+	7.产生site：mvn site
+	8.打包：mvn package
+	9.在本地Repository中安装jar：mvn install
+	10. mvn eclipse:eclipse ：生成 Eclipse 项目文件

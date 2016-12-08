@@ -1,0 +1,30 @@
+mq_clien_conf.properies
+
+1、工业发送到商业需要按comid分组吗
+	分tag 可以按照这种方案传
+
+2、高速服务发送失败补偿
+
+
+批量发
+	topic：主题
+	tags：标签
+	key：发送消息 主键
+	queryId：分队列用
+	datas：发送的数据
+	
+	addMsgs(String topic,String tags,String key,String queryId,List<Map<?,?>> datas)
+	startSendMsg()
+单条发
+	sendMsg()
+
+接收端
+
+	IBatchConsumerDeal 批量消费
+	
+	单条消费
+	
+
+DTP_UPLOAD_LOG
+
+DTP_UPLOAD_LOG_ITEM
