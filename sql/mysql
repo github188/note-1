@@ -1,3 +1,5 @@
+my.cnf 说明
+http://www.cnblogs.com/captain_jack/archive/2010/10/12/1848496.html
 1、追加bin路径到PATH
 2、修改mydefault.ini
 	basedir = D:\mysql-5.6.24-win32
