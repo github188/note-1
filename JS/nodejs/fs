@@ -2,3 +2,23 @@
 	fs.createReadStream()
 	fs.open() fs.read()
 	fs.readFile()
+写文件的方式
+	fs.writeFile('./resut.text',resultBuffer,function(err){
+		if(err) throw err;
+		console.log('has finished');
+	});
+	
+	var fileReadStream = fs.createReadStream('./myjpg.jpg',rOption);
+	var fileWriteStream = fs.createWriteStream('./new_myjpg.jpg',wOption);
+
+	label1 :fileReadStream.on('data',function(data){
+		fileWriteStream.write( data );
+	});
+
+	fileReadStream.on('end',function(){
+		console.log('readStream end'); 
+		fileWriteStream.end();
+	label2: });
+	
+	label1 - label2 代码可以用
+	fileReadStream.pipe( fileWriteStream );

@@ -1,21 +1,21 @@
 #! /usr/bin/env node
-// var fs = require('fs')
+var fs = require('fs')
 // var sys = require('sys')
 // var exec = require('child_process').exec;
 
 // console.log( process )
 // console.log( process.argv )
 
-// var rs = fs.createReadStream('/git/note/linux/restart.sh');
+var rs = fs.createReadStream('/home/zhangwj/workspace/imr_tmp/java/src/com/v6/imr_tmp/pc/cust/valueIndex/ValueIndexCmd.java');
 
-// rs.on('data', function (chunk) {
-// 	console.log(chunk.toString('utf-8'));
-// });
+rs.on('data', function (chunk) {
+	console.log(chunk.toString('utf-8'));
+});
 
-// rs.on('end', function () {
-// 	// cleanUp();
-// 	console.log('done');
-// });
+rs.on('end', function () {
+	// cleanUp();
+	console.log('done');
+});
 
 
 
@@ -31,9 +31,9 @@
 
 // });
 
-var add = function( a, b ){
-	return a + b;
-}
-console.log(add( 1, 2, function(){
-	console.log(11)
-} ))
+// var add = function( a, b ){
+// 	return a + b;
+// }
+// console.log(add( 1, 2, function(){
+// 	console.log(11)
+// } ))
