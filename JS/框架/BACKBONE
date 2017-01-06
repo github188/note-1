@@ -3,3 +3,43 @@ Backbone
 html 纯模板
 Module Collection 纯数据，提供一些数据相关的api
 View 1、根据数据变更渲染页面（使用模板函数，尽量不要操作dom）；2、事件绑定；
+
+
+
+-------------RestFul api---------------------------------
+为web（网站）应用创建一个公开的API（应用程序编程接口）。需要认识到这样一个问题：一旦API发布后，
+就很难对它做很大的改动并且保持像先前一样的正确性.
+
+它应当在需要的地方使用 web 标准
+它应当对开发者友好并且便于在浏览器地址栏中浏览和探索
+它应当是简单、直观和一致的，使它用起来方便和舒适
+它应当提供足够的灵活性来增强大多数的 SupportFu 用户界面
+它应当是高效的，同时要维持和其他需求之间的平衡
+一个 API 是一个开发者的 UI - 就像其他任何 UI 一样, 确保用户体验被认真的考虑过是很重要的!
+
+一旦定义好了资源, 需要确定什么样的 actions 应用它们，这些 actions 怎么映射到你的 API 上。RESTful 原则提供了
+ HTTP methods 映射作为策略来处理 CRUD actions，如下：
+
+GET /tickets - 获取 tickets 列表
+GET /tickets/12 - 获取一个单独的 ticket
+POST /tickets - 创建一个新的 ticket
+PUT /tickets/12 - 更新 ticket #12
+PATCH /tickets/12 - 部分更新 ticket #12
+DELETE /tickets/12 - 删除 ticket #12
+
+但是你该如何处理（资源的）关系呢？如果关系依托于另外一个资源，Restful原则提供了很好的指导原则。让我们来看一个例子。
+SupportFu的一个ticket包含许多消息（message）。这些消息逻辑上与/tickets接入点的映射关系如下：
+
+GET /tickets/12/messages - 获取ticket #12下的消息列表
+GET /tickets/12/messages/5 - 获取ticket #12下的编号为5的消息
+POST /tickets/12/messages - 为ticket #12创建一个新消息
+PUT /tickets/12/messages/5 - 更新ticket #12下的编号为5的消息
+PATCH /tickets/12/messages/5 - 部分更新ticket #12下的编号为5的消息
+DELETE /tickets/12/messages/5 - 删除ticket #12下的编号为5的消息
+
+	@RequestMapping(value = "/login/{user}", method = RequestMethod.GET)
+	public ModelAndView myMethod(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("user") String user, ModelMap modelMap) throws Exception {
+		modelMap.put("loginUser", user);
+		return new ModelAndView("/login/hello", modelMap);
+	}
