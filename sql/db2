@@ -36,3 +36,16 @@ db2look -d cqyancao -e -o db.sql -i db2user -w psw
             
 --导出ICA的表 DDL /opt/ibm/db2/V9.7/bin
 ./db2look -d v6db -tw 'ICA%' -e -o /ica.sql -i db2inst1 -w db2inst1
+
+--要将字符串转换成日期或时间值
+values timestamp('2010-03-09-22.43.00.000000');
+values timestamp('2010-03-09 22:44:36');
+values date('2010-03-09');
+values date('03/09/2010');
+values time('22:45:27');
+values time('22.45.27');
+
+--执行日期和时间的计算
+values current date+1 year;
+values current date+3 years+2 months +15 days;
+values current time +5 hours -3 minutes +10 seconds;
