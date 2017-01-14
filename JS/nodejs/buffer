@@ -1,0 +1,64 @@
+buffer
+二进制对象，用来处理二进制数据，如文件流，浏览器的请求流
+
+1、分别是拼接各种不同长度的字符串，读取速度都不需要测试了，肯定string更快
+
+3、buffer字符串的连接
+我们接受post数据时，node是以流的形式发送上来的，会触发ondata事件，所以我们见到很多代码是这样写的：
+
+var http = require('http');
+ http.createServer(function (req, res) {
+  
+  var body = '';
+  req.on('data',function(chunk){
+	//console.log(Buffer.isBuffer(chunk))
+	body +=chunk
+  })
+  req.on('end',function(){
+	 console.log(body)
+	 res.writeHead(200, {'Content-Type': 'text/plain'});
+		 res.end('Hello World\n');
+  })
+  
+ 
+}).listen(8124);
+
+console.log('Server running at http://127.0.0.1:8124/');
+下面我们比较一下两者的性能区别，测试代码：
+
+var buf = new Buffer('nodejsv0.10.4&nodejsv0.10.4&nodejsv0.10.4&nodejsv0.10.4&');
+console.time('string += buf')
+var s = '';
+for(var i=0;i<10000;i++){
+	s += buf;
+}
+s;
+console.timeEnd('string += buf')
+
+
+console.time('buf concat')
+var list = [];
+var len=0;
+for(var i=0;i<10000;i++){
+	list.push(buf);
+	len += buf.length;
+}
+var s2 = Buffer.concat(list, len).toString();
+console.timeEnd('buf concat')
+输出结果，相差近一倍：
+
+string += buf: 15ms
+buf concat: 8ms
+在1000次拼接过程中，两者的性能几乎相差一倍，而且当客户上传的是非UTF8的字符串时，直接+=还容易出现错误。
+
+var rs = fs.createReadStream('testdata.md', {bufferSize: 11}); 
+我们将会得到以下这样的乱码输出  || 实践证明，说的不对啊，不知道是不是版本不对
+
+4、独享的空间
+如果你想创建一个独享的空间，独立的对这块内存空间进行读写，有两种办法，1是实例化一个超过8KB长度的buffer，另外一个就是使用slowbuffer类。
+
+5、buffer的释放
+很遗憾，我们无法手动对buffer实例进行GC，只能依靠V8来进行，我们唯一能做的就是解除对buffer实例的引用。
+
+6、清空buffer
+刷掉一块buffer上的数据最快的办法是buffer.fill
