@@ -51,16 +51,13 @@
 
 # 开源项目和作品
 
-## nodejs实现简易的代码机，业余时间完成并实际应用到工作中
-###
+### nodejs实现简易的代码机，业余时间完成并实际应用到工作中
 https://github.com/zhangwj999/note/tree/master/JS/nodejs/codecreater
 	
-## shell的一些应用，重启websphere应用，定时器制造开发所需业务数据
-###
+### shell的一些应用，重启websphere应用，定时器制造开发所需业务数据
 https://github.com/zhangwj999/note/tree/master/linux/%E4%BD%BF%E7%94%A8
 
-## java运用注解技术实现的可以实时查看所有已发布的接口
-###
+### java运用注解技术实现的可以实时查看所有已发布的接口
 https://github.com/zhangwj999/codestore/tree/master/inspect/ica/java/src/com/v6/ica
 
 # 技能清单
