@@ -1,0 +1,181 @@
+一、 ROWID的概念
+
+	存储了row在数据文件中的具体位置：64位 编码的数据，A-Z, a-z, 0-9, +, 和 /，
+
+	row在数据块中的存储方式
+
+	SELECT ROWID, last_name FROM hr.employees WHERE department_id = 20;
+
+	比 如：OOOOOOFFFBBBBBBRRR
+
+	OOOOOO：data object number, 对应dba_objects.data_object_id
+
+	FFF：file#, 对应v$datafile.file#
+
+	BBBBBB：block#
+
+	RRR：row#
+
+	Dbms_rowid包
+
+	SELECT dbms_rowid.rowid_block_number('AAAGFqAABAAAIWEAAA') from dual;
+
+具 体到特定的物理文件
+
+二、 索引的概念
+
+	1、 类似书的目录结构
+
+	2、 Oracle 的“索引”对象，与表关联的可选对象，提高SQL查询语句的速度
+
+	3、 索引直接指向包含所查询值的行的位置，减少磁盘I/O
+
+	4、 与所索引的表是相互独立的物理结构
+
+	5、 Oracle 自动使用并维护索引，插入、删除、更新表后，自动更新索引
+
+	6、 语法：CREATE INDEX index ON table (column[, column]...);
+
+	7、 B-tree结构(非bitmap)：
+	
+三、 唯一索引
+
+	1、 何时创建：当某列任意两行的值都不相同
+
+	2、 当建立Primary Key(主键)或者Unique constraint(唯一约束)时，唯一索引将被自动建立
+
+	3、 语法：CREATE UNIQUE INDEX index ON table (column);
+
+	4、 演示
+	
+四、 组合索引
+
+	1、 何时创建：当两个或多个列经常一起出现在where条件中时，则在这些列上同时创建组合索引
+
+	2、 组合索引中列的顺序是任意的，也无需相邻。但是建议将最频繁访问的列放在列表的最前面
+
+	3、 演示(组合列，单独列)
+	
+五、 位图索引
+
+	1、 何时创建：
+
+	列中有非常多的重复的值时候。例如某列保存了 “性别”信息。
+
+	Where 条件中包含了很多OR操作符。
+
+	较少的update操作，因为要相应的更新所有的bitmap
+
+	2、 结构：位图索引使用位图作为键值，对于表中的每一数据行位图包含了TRUE(1)、FALSE(0)、或NULL值。
+
+	3、 优点：位图以一种压缩格式存放，因此占用的磁盘空间比标准索引要小得多
+
+	4、 语法：CREATE BITMAP INDEX index ON table (column[, column]...);
+
+	5、 掩饰：
+
+	create table bitmaptable as select * from indextable where owner in('SYS','PUBLIC');
+
+	分析，查找，建立索引，查找
+	
+六、 基于函数的索引
+
+	1、 何时创建：在WHERE条件语句中包含函数或者表达式时
+
+	2、 函数包括：算数表达式、PL/SQL函数、程序包函数、SQL函数、用户自定义函数。
+
+	3、 语法：CREATE INDEX index ON table (FUNCTION(column));
+
+	4、 演示
+
+	必须要分析表，并且 query_rewrite_enabled=TRUE
+
+	或者使用提示/*+ INDEX(ic_index)*/
+	
+七、 反向键索引
+
+	目的：比如索引值是一个自动增长的列：
+
+	多个用户对集中在少数块上的索引行进行修改，容易引起资源的争用，比如对数据块的等待。此时建立反向索 引。
+
+	性能问题：
+
+	语法：
+
+	重建为标准索引：反之不行
+	
+八、 键压缩索引
+
+	比如表landscp的数据如下：
+
+	site feature job
+
+	Britten Park, Rose Bed 1, Prune
+
+	Britten Park, Rose Bed 1, Mulch
+
+	Britten Park, Rose Bed 1,Spray
+
+	Britten Park, Shrub Bed 1, Mulch
+
+	Britten Park, Shrub Bed 1, Weed
+
+	Britten Park, Shrub Bed 1, Hoe
+
+	……
+
+	查询时，以上3列均在where条件中同时出现，所以建立基于以上3列的组合索引。但是发现重复值很多，所以考虑压缩特性。
+
+	Create index zip_idx
+
+	on landscp(site, feature, job)
+
+	compress 2;
+
+	将索引项分成前缀(prefix)和后缀(postfix)两部分。前两项被放置到前缀部分。
+
+	Prefix 0: Britten Park, Rose Bed 1
+
+	Prefix 1: Britten Park, Shrub Bed 1
+
+	实际所以的结构为：
+
+	0 Prune
+
+	0 Mulch
+
+	0 Spray
+
+	1 Mulch
+
+	1 Weed
+
+	1 Hoe
+
+	特点：组合索引的前缀部分具 有非选择性时，考虑使用压缩。减少I/O,增加性能。
+
+	九、 索引组织表(IOT)
+
+	将表中的数据按照索 引的结构存储在索引中，提高查询速度。
+
+	牺牲插入更新的性能，换取查询 性能。通常用于数据仓库，提供大量的查询，极少的插入修改工作。
+
+	必须指定主键。插入数据时，会根据主键列进行B树索引排序，写入磁盘。
+
+十、 分区索引
+	簇:
+
+	A cluster is a group of tables that share the same data blocks because they share common columns and are often used together.
+
+
+十一、 索引对性能的提升
+
+	1、通过唯一性索引（unique）可确保数据的唯一性
+	
+	2、加快数据的检索速度
+	
+	3、加快表之间的连接
+	
+	4、减少分组和排序时间
+	
+	5、使用优化隐藏器提高系统性能

@@ -1,0 +1,6 @@
+1、工业月投放计划MQ上传数据定时器
+	名称：		工业月投放计划MQ上传数据定时器
+	服务类型：	远程服务
+	服务名：	com.v6.dtp.ica.producer.indsupplyplan.IIndSupplyPlanProducer
+	方法名：	send
+	执行时间：	每月1号	分00 时00 天01 月* 周 * 
