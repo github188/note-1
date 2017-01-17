@@ -39,14 +39,14 @@
 	提升的要求。
 
 ### 工业营销项目（产品线）
-	在完成新商盟项目之后，开始进行工业营销产品线的开发，在开发的早期，进行技术选型和框架搭建工作，后来因为项目时间紧急最终选择未能
-	使用。之后开发中，在前端技术负责人离职之后，接替他的工作，完成了产品的开发和维护。产品初步版本完成后，正在市场营销人员的努力下，
-	积极的寻找着市场。
+	在完成新商盟项目之后，开始进行工业营销产品线的开发，在开发的早期，负责技术选型和框架搭建工作，后来因为项目时间紧急最未能使用。
+	期间在前端技术负责人离职之后，接替他的工作，完成了产品的开发和维护。产品初步版本完成后，正在市场营销人员的努力下，积极的寻找着
+	市场。这是目前还在开发中的项目
 	
 ### 其他项目
-	在工作之余，也接过一些工作之外的研发任务。曾接手过某银行理财系统的功能开发与维护。在与客户交流协调的基础上，按工期完成模块的开
-	发与维护工作，最终在完成所有的研发工作后离开项目。在项目中主动学习jeecg的框架技术，学习视频媒体流相关技术，完成业务逻辑的开发。
-	
+	在工作之余，也接过一些工作之外的研发任务。曾接手过某银行理财系统的功能开发与维护。在与客户交流协调的基础上，按工期完成模块的
+	开发与维护工作，最终在完成协商的研发工作后离开项目。该项目主要使用的技术是jeecg的框架技术，视频媒体流相关技术。
+
 ---
 
 # 开源项目和作品
@@ -66,12 +66,12 @@ https://github.com/zhangwj999/codestore/tree/master/inspect/ica/java/src/com/v6/
 
 - Web开发：Java/Node/Python
 - Web框架：Spring/myBatis/Hibernate/Struts/SpringMVC
-- 前端框架：Bootstrap/CoffeeScript/BackBone/lodash/AngularJS/Html/Css/jQuery/ajax
+- 前端框架：Bootstrap/CoffeeScript/backbonejs/lodash/AngularJS/Html/Css/jQuery/ajax
 - 前端工具：Grunt/LeSS
-- 数据库相关：MySQL/db2/Oracle
+- 数据库相关：MySQL/Db2/Oracle
 - 版本管理、文档和自动化部署工具：Svn/Git/Maven
-- Linux：Shell/awk/sed
-- 搜索引擎：solr
+- 服务器相关：Tomcat/Apache/Linux/Shell/awk/sed
+- 其它：MQ/Netty/solr
 
 ---
 
