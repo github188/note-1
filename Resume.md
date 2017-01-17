@@ -47,117 +47,28 @@
 ---
 
 # 开源项目和作品
-	##nodejs实现简易的代码机，业余时间完成并实际应用到工作中
-	-https://github.com/zhangwj999/note/tree/master/JS/nodejs/codecreater 
-	## shell的一些应用，重启websphere应用，定时器制造开发所需业务数据
-	-https://github.com/zhangwj999/note/tree/master/linux/%E4%BD%BF%E7%94%A8
-	## java运用注解技术实现的可以实时查看所有已发布的接口
-	-https://github.com/zhangwj999/codestore/tree/master/inspect/ica/java/src/com/v6/ica
 
-## 演讲和讲义
-（放置你代表公司在一些技术会议上做过的演讲，以及你在公司分享时制作的讲义）
+##nodejs实现简易的代码机，业余时间完成并实际应用到工作中
+###https://github.com/zhangwj999/note/tree/master/JS/nodejs/codecreater
+	
+## shell的一些应用，重启websphere应用，定时器制造开发所需业务数据
+###https://github.com/zhangwj999/note/tree/master/linux/%E4%BD%BF%E7%94%A8
 
-  - 2014架构师大会演讲：[如何通过Docker优化内部开发](http://jobdeer.com)
- - 9月公司内部分享：[云计算的前生今世](http://jobdeer.com)
+## java运用注解技术实现的可以实时查看所有已发布的接口
+###https://github.com/zhangwj999/codestore/tree/master/inspect/ica/java/src/com/v6/ica
 
 # 技能清单
-（我一般主张将技能清单写入到工作经历里边去。不过很难完整，所以有这么一段也不错）
 
 以下均为我熟练使用的技能
 
-- Web开发：PHP/Hack/Node
-- Web框架：ThinkPHP/Yaf/Yii/Lavaral/LazyPHP
-- 前端框架：Bootstrap/AngularJS/EmberJS/HTML5/Cocos2dJS/ionic
-- 前端工具：Bower/Gulp/SaSS/LeSS/PhoneGap
-- 数据库相关：MySQL/PgSQL/PDO/SQLite
-- 版本管理、文档和自动化部署工具：Svn/Git/PHPDoc/Phing/Composer
-- 单元测试：PHPUnit/SimpleTest/Qunit
-- 云和开放平台：SAE/BAE/AWS/微博开放平台/微信应用开发
-
-## 参考技能关键字
-
-本技能关键字列表是从最近招聘Web前端的数百份JD中统计出来的，括号中是出现的词频。如果你的简历要投递给有机器（简历分选系统）和不如机器（不懂技术的HR）筛选简历环节的地方，请一定从下边高频关键词中选择5～10个适合你自己的。
-
-- web(889)
-- javascript(596)
-- css(555)
-- html(430)
-- jquery(323)
-- html5(312)
-- js(311)
-- ajax(196)
-- css3(176)
-- w3c(168)
-- div(156)
-- php(134)
-- xhtml(106)
-- java(92)
-- ui(78)
-- photoshop(75)
-- dom(63)
-- xml(56)
-- json(54)
-- yui(51)
-- flash(45)
-- bootstrap(43)
-- python(43)
-- http(38)
-- dreamweaver(38)
-- ext(33)
-- linux(33)
-- seo(32)
-- prototype(29)
-- chrome(28)
-- pc(28)
-- nodejs(28)
-- firefox(26)
-- ps(25)
-- angularjs(25)
-- fireworks(24)
-- extjs(23)
-- safari(22)
-- www(22)
-- mobile(22)
-- jsp(22)
-- mvc(22)
-- backbone(21)
-- node(21)
-- ruby(20)
-- github(19)
-- ios(18)
-- ie6(18)
-- android(18)
-- asp(18)
-- sass(17)
-- wap(16)
-- mootools(16)
-- ie(16)
-- mysql(15)
-- flex(14)
-- firebug(13)
-- bom(13)
-- webapp(12)
-- less(12)
-- web2(11)
-- angular(10)
-- git(10)
-- dw(10)
-- as(10)
-- mac(10)
-- psd(8)
-- o2o(7)
-- dojo(7)
-- actionscript3(6)
-- grunt(5)
-- ue(5)
-- zepto(5)
-- actionscript(5)
-- ie8(5)
-- coffeescript(5)
-- django(4)
-
-
-
+- Web开发：Java/Node/Python
+- Web框架：Spring/myBatis/Hibernate/Struts/SpringMVC
+- 前端框架：Bootstrap/CoffeeScript/BackBone/lodash/AngularJS/Html/Css/jQuery/ajax
+- 前端工具：Grunt/LeSS
+- 数据库相关：MySQL/db2/Oracle
+- 版本管理、文档和自动化部署工具：Svn/Git/Maven
+- Linux：Shell/awk/sed
+- 搜索引擎：solr
 
 ---
 
