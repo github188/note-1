@@ -1,0 +1,16 @@
+
+INSERT INTO PUB_FUNCTIONS
+(FUNCTION_CODE, FUNCTION_NAME, MODULE_CODE, SEQ, ORGAN_TYPE, IS_MENU, URL, ICON, F_TYPE, TARGET, CP_MENU_ID, DESCRIPTION, STRU_TYPE)
+VALUES('imr_pc_comsSgpAna', '货源投放效果分析', 'imr_pc', 40, '6701', '1', '/pc/supply.cmd?method=comsSgpAnalysis', '', '0', NULL, 1001, NULL, '11');
+
+
+
+INSERT INTO PUB_OPERATIONS
+(OPERATION_CODE, OPERATION_NAME, FUNCTION_CODE, OPERATION_TYPE_CODE, IS_DEFAULT, SEQ)
+VALUES('imr_pc_comsSgpAnaQ', '查询', 'imr_pc_comsSgpAna', '00', '1', 0);
+
+
+
+INSERT INTO PUB_URLS
+(URL_CODE, URL_NAME, URL_CONTENT, OPERATION_CODE, FUNCTION_CODE, ACCESS_TYPE, NOTE, SEQ)
+VALUES('ee8150586ff9720159ba9a3b140094', '查询', '/pc/supply.cmd?method=comsSgpAnalysis', 'imr_pc_comsSgpAnaQ', 'imr_pc_comsSgpAna', 'http', NULL, 0);

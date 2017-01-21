@@ -10,12 +10,15 @@ var rs = fs.createReadStream('/home/zhangwj/workspace/imr_tmp/java/src/com/v6/im
 var data = ''
 rs.on('data', function (chunk) {
 	// console.log(chunk.toString('utf-8'));
-	data += chunk
+	var reg = /getValueIndexService.*/g
+	var ch = chunk + ''
+	ch = ch.replace( /getValue/g, '悟空转今何在' )
+	data += ch
+	console.log(data);
+	console.log( '万恶的分割线-----------------------------------万恶的分割线' )
 });
 rs.on('end', function () {
 	// cleanUp();
-	console.log('done');
-	console.log(data);
 });
 console.timeEnd('readfile')
 
