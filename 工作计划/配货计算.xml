@@ -1,0 +1,191 @@
+
+<select id="getIcomId" resultType="map">
+	SELECT
+		ORGAN_ID
+	FROM
+		PUB_ORGAN
+	WHERE
+		ORGAN_TYPE=''
+</select>
+
+<!-- 获取本工业含定时配货卷烟的商业公司 -->
+<select id="getRegularDistComs" parameterType="String" resultType="map">
+	SELECT
+		A.ICOM_ID
+		A.COM_ID,
+		A.DIST_SEND_DAYS,
+		A.TRANSIT_DAYS,
+		B.PERIOD_TYPE,
+		B.DIST_DAY
+	FROM
+		ICA_PARAMS A,
+		ICA_PARMS_DISTDAY B
+	WHERE
+		A.ICOM_ID=#{value}
+		AND A.ICOM_ID=B.ICOM_ID
+		AND A.COM_ID=B.COM_ID
+		AND A.STATUS='30'
+		AND EXISTS(
+			SELECT
+				1
+			FROM
+				ICA_ITEM_PARAMS C
+			WHERE
+				C.DIST_MODE='10'
+				AND A.COM_ID=C.COM_ID
+				AND C.ICOM_ID=#{value}
+		)
+</select>
+
+<!-- 插入一条配货日历记录 -->
+<insert id="saveDistCalendar" parameterType="map">
+	MERGE INTO 
+		ICA_COM_DISTDAY A 
+	USING(
+		SELECT
+			#{ICOM_ID} ICOM_ID,
+			#{COM_ID} COM_ID,
+			#{distDate} DIST_DATE,
+			#{sendDate} ISS_DATE,
+			#{receiveDate} RCPT_DATE
+		FROM
+			<if test="v6dbtype==oracle">
+				DUAL
+			</if>
+			<if test="v6dbtype==db2">
+				SYSIBM.SYSDUMMY1
+			</if>
+	) B 
+	ON(A.ICOM_ID=B.ICOM_ID AND A.COM_ID=B.COM_ID AND A.RCPT_DATE=B.RCPT_DATE)
+	WHEN MATCHED THEN 
+		UPDATE SET
+			DIST_DATE=B.DIST_DATE,ISS_DATE=B.ISS_DATE
+	WHEN NOT MATCHED THEN 
+		INSERT( ICOM_ID,COM_ID,DIST_DATE,ISS_DATE,RCPT_DATE )
+		VALUES( B.ICOM_ID,B.COM_ID,B.DIST_DATE,B.ISS_DATE,B.RCPT_DATE )
+</insert>
+
+<!-- 获取本工业下所有的商业公司与基准库存日 -->
+<select id="getComsBaseDateDatas" parameterType="String" resultType="map">
+	SELECT
+		A.ICOM_ID,
+		A.COM_ID,
+		C.AVERAGE_SALES_DAYS,
+		MAX( B.DATE1 ) DATE1
+	FROM
+		ICA_COM A,
+		LEFT JOIN ICA_PARMS C ON A.ICOM_ID=C.ICOM_ID AND A.COM_ID=C.COM_ID
+		SCMR_PI_COM_DAY B
+	WHERE
+		A.ICOM_ID=#{value}
+		AND A.COM_ID=B.CCOM_ID
+	GROUP BY
+		A.ICOM_ID,
+		A.COM_ID,
+		C.AVERAGE_SALES_DAYS,
+		B.DATE1
+</select>
+
+<!-- 公司商品日均销量 -->
+<sql id="comItemAverTemp">
+	WITH T_COM_ITEM_AVER(COM_ID,PACK_BAR,AVER_SALE)	AS(
+		SELECT
+			B.CCOM_ID,
+			B.PACK_BAR,
+			SUM( B.QTY_SOLD*A.T_SIZE )*1.0/( ${AVERAGE_SALES_DAYS}*A.X_SIZE ) AVER_SALE
+		FROM
+			ICA_ITEM A,
+			SCMR_PI_COM_DAY B
+		WHERE
+			B.DATE1 DATE1 BETWEEN #{BEGIN_DATE} AND #{DATE1}
+			AND B.ICOM_ID=#{ICOM_ID}
+			AND A.ICOM_ID=B.ICOM_ID
+			AND A.PACK_BAR=B.PACK_BAR
+		GROUP BY
+			B.CCOM_ID,B.PACK_BAR
+	),T_CONTRACT(ICOM_ID,COM_ID,ITEM_ID,QTY_ORD) AS(
+		SELECT
+			A.ICOM_ID,
+			A.COM_ID,
+			B.ITEM_ID,
+			SUM(B.QTY_ORD)
+		FROM
+			ICA_CONTRACT A,
+			ICA_CONTRACT_ITEM B
+		WHERE
+			A.CONTR_ID=B.CONTR_ID
+			AND A.SIGN_DATE&lt;=#{DATE1}
+			AND STATUS IN('03','05','06','07','08','09')
+		GROUP BY
+			A.ICOM_ID,
+			A.COM_ID,
+			B.ITEM_ID
+	),T_CONTRACT_B(ICOM_ID,COM_ID,ITEM_ID,QTY_ORD) AS(
+		SELECT
+			A.ICOM_ID,
+			A.COM_ID,
+			B.ITEM_ID,
+			SUM(B.QTY_ORD)
+		FROM
+			ICA_CONTRACT A,
+			ICA_CONTRACT_ITEM B
+		WHERE
+			A.CONTR_ID=B.CONTR_ID
+			AND A.SIGN_DATE&gt;=#{DATE1}
+			AND STATUS IN('03','05','06','07','08','09','11')
+		GROUP BY
+			A.ICOM_ID,
+			A.COM_ID,
+			B.ITEM_ID
+	)
+
+</sql>
+
+<!-- 商业公司规格工业日结数据获取 -->
+<select id="getDistBaseData" parameterType="map" resultType="map">
+	<include ref="comItemAverTemp"></include>
+	SELECT
+		#{ICOM_ID} ICOM_ID,
+		#{COM_ID} COM_ID,
+		TO_CHAR(CURRENT_TIMESTAMP,'YYYYMMDD') DATE1,
+		#{DATE1} BASE_DATE,
+		A.AVER_SALE,
+		B.QTY_EOD*C.T_SIZE*1.0/C.X_SIZE BASE_QTY_STORE,
+		B.QTY_EOD*C.T_SIZE*1.0/( C.X_SIZE*B.QTY_PURCH ) BASE_RATE,
+		D.QTY_ORD*10000.0/C.X_SIZE BASE_QTY_TRANS,
+		E.QTY_ORD*10000.0/C.X_SIZE BASE_CURR_QTY_CONTR,
+		${diff}*A.AVER_SALE BASE_CURR_SALES,
+	FROM
+		T_COM_ITEM_AVER A LEFT JOIN
+		SCMR_PI_COM_DAY B ON A.COM_ID=B.CCOM_ID AND A.PACK_BAR=B.PACK_BAR AND B.DATE1=#{DATE1} LEFT JOIN 
+		ICA_ITEM C ON B.PACK_BAR=C.PACK_BAR
+		LEFT JOIN T_CONTRACT D ON C.ITEM_ID=D.ITEM_ID AND A.COM_ID=D.COM_ID
+		LEFT JOIN T_CONTRACT_B E ON C.ITEM_ID=E.ITEM_ID AND A.COM_ID=E.COM_ID
+</select>
+
+<!-- 插入一条配货日历记录 -->
+<insert id="saveDistCalcBaseData" parameterType="map">
+	MERGE INTO 
+		ICA_DIST_CALC A 
+	USING(
+		<foreach collection="comItemList" seperator="UNION ALL" item="comItem">
+			SELECT
+				#{comItem.ICOM_ID} ICOM_ID,
+				#{comItem.COM_ID} COM_ID
+			FROM
+				<if test="v6dbtype==oracle">
+					DUAL
+				</if>
+				<if test="v6dbtype==db2">
+					SYSIBM.SYSDUMMY1
+				</if>
+		</foreach>
+	) B
+	ON( A.ICOM_ID=B.ICOM_ID AND A.COM_ID=B.COM_ID AND A.PACK_BAR=B.PACK_BAR AND A.DATE1=B.DATE1 )
+	WHEN MATCHED THEN 
+		UPDATE SET
+			DIST_DATE=B.DIST_DATE,ISS_DATE=B.ISS_DATE
+	WHEN NOT MATCHED THEN 
+		INSERT( ICOM_ID,COM_ID,DIST_DATE,ISS_DATE,RCPT_DATE )
+		VALUES( B.ICOM_ID,B.COM_ID,B.DIST_DATE,B.ISS_DATE,B.RCPT_DATE )
+</insert>

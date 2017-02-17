@@ -1,0 +1,14 @@
+配置定时器
+1、工业定时计算配货日历
+	类型：远程服务
+	任务名称：ica_dist_calendar
+	服务名称：com.v6.ica.dist.disttimers.IDistTimers
+	方法名：calcDistCalendar
+	执行频率：01 00 * * *
+
+2、工业定时计算配货日结表
+	类型：远程服务
+	任务名称：ica_dist_calc
+	服务名称：com.v6.ica.dist.disttimers.IDistTimers
+	方法名：calcDistBase
+	执行频率：01 00 * * *
