@@ -1,0 +1,124 @@
+1、公司卷烟缺少初始化SQL
+select * from  PUB_COMMON_HELP where HELP_ID='ICA_ITEM_HELP'
+
+
+INSERT INTO PUB_COMMON_HELP VALUES (
+	'ICA_ITEM_HELP',
+	'ICA_ITEM',
+	'工商网配商品帮助',
+	NULL,
+	NULL,
+	'PACK_BAR',
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	'PACK_BAR',
+	NULL,
+	'ITEM_NAME',
+	'PACK_BAR,ITEM_NAME',
+	'PACK_BAR,ITEM_NAME',
+	' 1=1 AND @WHERE@',
+	'0',
+	'1',
+	'0',
+	'PACK_BAR#条码#100,ITEM_NAME#卷烟名称#150',
+	NULL,
+	NULL,
+	NULL,
+	NULL);
+
+
+2、配货单状态，配货单类型枚举值缺少
+
+
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_TYPE',
+	'30',
+	'同城联运',
+	'配货类型');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_TYPE',
+	'40',
+	'工业应急配货',
+	'配货类型');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_TYPE',
+	'41',
+	'商业应急配货',
+	'配货类型');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_TYPE',
+	'10',
+	'按存销比配货',
+	'配货类型');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_STATUS',
+	'10',
+	'已保存',
+	'配货状态');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_STATUS',
+	'11',
+	'已上报',
+	'配货状态');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_STATUS',
+	'20',
+	'中心审核不通过',
+	'配货状态');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_STATUS',
+	'21',
+	'工业已提供',
+	'配货状态');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_STATUS',
+	'30',
+	'商业已提交',
+	'配货状态');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_STATUS',
+	'31',
+	'磋商成功',
+	'配货状态');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_STATUS',
+	'40',
+	'中心已驳回',
+	'配货状态');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_STATUS',
+	'50',
+	'已确认',
+	'配货状态');
+
+
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_CALC_MODEL',
+	'10',
+	'按存销比',
+	'计算方式');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_CALC_MODEL',
+	'20',
+	'按库存绝对值',
+	'计算方式');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_CALC_MODEL',
+	'30',
+	'不参与计算',
+	'计算方式');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_MODEL',
+	'10',
+	'存销比配货',
+	'配货方式');
+INSERT INTO BASE_DICT VALUES (
+	'ICA_DIST_MODEL',
+	'20',
+	'同城联运',
+	'配货方式');
+
+3、按讨论 上海项目 各个市场部作为销区（片区），那么销区下区域经理怎么获取管理的商业公司？
+	客户经理取com表slsman_id，市场部经理取直接上级销区（片区）的area_id，这个问题需要尽快定一下

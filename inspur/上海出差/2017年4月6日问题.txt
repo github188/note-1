@@ -1,0 +1,38 @@
+1、配货参数
+	没有数据直接报错
+	修改计算方式失败
+2、存销比配货
+	商业公司到货仓库需要增加数据
+	协议数据需要初始化
+3、配货单前缀问题
+	现在在程序里写死的，没有上海，怎么处理
+
+4、缺sql
+
+INSERT INTO PUB_COMMON_HELP VALUES (
+	'IMR_ITEM_HELP',
+	'SCMR_ITEM_BASE',
+	'选择卷烟',
+	NULL,
+	NULL,
+	'PACK_BAR',
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	'PACK_BAR',
+	NULL,
+	'ITEM_NAME',
+	'PACK_BAR,ITEM_NAME',
+	'PACK_BAR,ITEM_NAME',
+	' 1=1 AND @WHERE@',
+	'0',
+	'1',
+	'0',
+	'PACK_BAR#卷烟条形码#100,ITEM_NAME#卷烟名称#150',
+	NULL,
+	NULL,
+	NULL,
+	NULL);
+
+5、SCMR_ITEM_BASE，SCMR_PI_CUSTTYPE_MONTH 初始化数据
