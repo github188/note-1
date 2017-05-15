@@ -12,3 +12,8 @@ eat key,value for own key,value of [x:1,y:2]
 
 console.log ['a','b','c'][0..1]
 console.log ['a','b','c'][0...1]
+
+x = 
+	2 *
+	3 +
+	4
