@@ -1,7 +1,7 @@
-ajax --》 V6框架使用基于jquery的ajax，使用ajax进行必要的校验
+# ajax --》 V6框架使用基于jquery的ajax，使用ajax进行必要的校验
 
 
-a、官网接口 
+## 官网
 http://api.jquery.com/category/ajax/
 $.ajax({
   url: "test.html"
@@ -9,7 +9,7 @@ $.ajax({
   $( this ).addClass( "done" );
 });
 
-b、使用ajax提交表单要引入form.js插件
+## 使用ajax提交表单要引入form.js
 ajaxSubmit({
 	target: '#output',          //把服务器返回的内容放入id为output的元素中
 	beforeSubmit: showRequest,  //提交前的回调函数  beforeSubmit会在表单提交前被调用，如果beforeSubmit返回false，则会阻止表单提交

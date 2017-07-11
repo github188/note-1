@@ -1,22 +1,22 @@
-service --》 服务层，对cmd提供服务，进行事务控制
+# service --》 服务层，对cmd提供服务，进行事务控制
 
-a、v6代码级生成的service代码继承了BaseServiceImpl类
+## v6代码级生成的service代码继承了BaseServiceImpl类
 
-b、有返回值的调用domain
+## 有返回值的调用domain
 	Object rlt = getTransactionTemplate().execute(new TransactionCallback() {
 				public Object doInTransaction(TransactionStatus arg0) {
 					return getComDomain().insertCom(beanMap);
 				}
 			});
 			
-c、无返回值的调用domain
+## 无返回值的调用domain
 	getTransactionTemplate().execute(new TransactionCallbackWithoutResult() {
 		protected void doInTransactionWithoutResult(TransactionStatus arg0) {
 			getComDomain().insertCom(beanMap);
 		}
 	});
 	
-d、引用的事务模板定义是在
+## 引用的事务模板定义是在
 	/opt/apps/app.ear/app.war/WEB-INF/conf/commonServiceSupport.xml
 	
 	<bean id="jdbcTransactionManager" class="org.loushang.commons.jdbc.datasource.DataSourceTransactionManager">

@@ -1,5 +1,4 @@
-
-	
+# 示例
 <div class="divBody">
 	//头部信息和按钮
 	<div class="buttonRightContainer">
@@ -34,7 +33,7 @@
 			</div>	
 		</div>	
 		
-		<table id="flexme1"  class="flexigrid"    width="100%" >
+		<table id="flexme1"  class="flexigrid" width="100%" >
 		//删除
 		<td style="text-align: center">
 			<span class="hide">
