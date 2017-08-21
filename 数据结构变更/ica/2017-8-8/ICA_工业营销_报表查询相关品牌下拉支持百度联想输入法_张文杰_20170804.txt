@@ -1,0 +1,8 @@
+1、报表查询卷烟下拉组件中，原百度联想输入法存在bug，修复
+2、卷烟下拉组件品牌排序问题，需要维护IRM_SEQ表，
+
+INSERT INTO DB2INST1.IMR_SEQ
+(SEQ_ID, SEQ_NAME, SEQ_TYPE, SEQ_NUM, SEQ_LEVEL, ORGAN_ID, ICOM_ID)
+VALUES('芙蓉王20430001', '芙蓉王', '1  ', 1, '1 ', '1', '1');
+
+需要注意的是SEQ_ID对于品牌来说要维护成BRAND_ID和工业公司ID拼起来的值
