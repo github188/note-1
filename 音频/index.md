@@ -2,6 +2,8 @@
 # RTMP 
 # Red5是一个采用Java开发开源的Flash流媒体服务器。它支持：把音频（MP3）和视频（FLV）转换成播放流； 录制客户端播放流（只支持FLV）；共享对象；现场直播流发布；远程调用。Red5使用RTMP, RTMPT, RTMPS, 和RTMPE作为流媒体传输协议，在其自带的一些示例中演示了在线录制，flash流媒体播放，在线聊天，视频会议等一些基本功能。
 
+http://www.cuplayer.com/player/PlayerCode/Red5/2016/0305/2321.html 
+
 Red5 is an Open Source Flash Server written in Java that supports:
 
 Streaming Video (FLV, F4V, MP4, 3GP)
