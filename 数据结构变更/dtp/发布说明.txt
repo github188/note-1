@@ -1,6 +1,26 @@
-1、工业月投放计划MQ上传数据定时器
-	名称：		工业月投放计划MQ上传数据定时器
-	服务类型：	远程服务
-	服务名：	com.v6.dtp.ica.producer.indsupplyplan.IIndSupplyPlanProducer
-	方法名：	send
-	执行时间：	每月1号	分00 时00 天01 月* 周 * 
+文件目录权限设置，确保这个路径是存在的，且程序有读写权限的
+	###应用服务器数据文件目录,压缩目录
+	com_dtpDataFilePath=/opt/detaildata/datafile/
+	com_dtpZipFilePath=/opt/detaildata/zipfile/
+
+配置定时任务
+	1、商业定时上传订单数据定时器
+		名称：		商业定时上传订单数据定时器
+		服务类型：	远程服务
+		服务名：	com.v6.dtp.ind.detail.com.IComDetailProducer
+		方法名：	shareCoDetailData
+		执行时间：	每天	分01 时00 天* 月* 周 * 
+
+	2、商业上传今天上半年订单数据定时器
+		名称：		商业上传今天上半年订单数据定时器
+		服务类型：	远程服务
+		服务名：	com.v6.dtp.ind.detail.com.IComDetailProducer
+		方法名：	shareAllCoDetailData
+		执行时间：	手工执行一次即可
+
+	3、商业上传所有零售户数据定时器
+		名称：		商业上传今天上半年订单数据定时器
+		服务类型：	远程服务
+		服务名：	com.v6.dtp.ind.detail.com.IComDetailProducer
+		方法名：	shareAllCustDetailData
+		执行时间：	每月1号 每天	分01 时00 天01 月* 周 * 
