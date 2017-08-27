@@ -1,0 +1,3 @@
+# Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'freemarker' defined in URL [file:/D:/0-github/lhmhm/WebRoot/WEB-INF/classes/org/jeecgframework/web/cgform/common/spring-mvc-cgform.xml]: Initialization of bean failed; nested exception is org.springframework.beans.FatalBeanException: Failed to obtain BeanInfo for class [freemarker.template.Configuration]; nested exception is java.beans.IntrospectionException: type mismatch between read and write methods
+
+解决：使用了jdk8的jvm
