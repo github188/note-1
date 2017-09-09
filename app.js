@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 var fs = require('fs')
+var path = require('path');
 // var sys = require('sys')
 // var exec = require('child_process').exec;
 
@@ -875,8 +876,33 @@ ZpRGCexJwP51VO0VqOajFH0F8SFPhr4bWemB9zr5duxPf14/OuDENSloaUYpngWrXqx2mACSTwBV
 wv2OicIWLHgSya611ZVH+pUyHv2x/WuiXuxPObhHY9M2k4ZuADiuVNvU6IKTWo4rjODz60c0tkLl
 V7k3lrtTby2Pyprm6lSstiRrYMSA3J6inOVjP3ZH/9k=`, 'base64')
 
-var ws = fs.createWriteStream('E://test.jpeg', {bufferSize: 11});
+// var ws = fs.createWriteStream('E://test.jpeg', {bufferSize: 11});
 
-fs.writeFile('E://test.jpeg',b,function(err){
+// var exiists = fs.existsSync( 'E://ihav/apen/' )
+
+//创建多层文件夹 同步
+function mkdirsSync(dirpath) { 
+    if (!fs.existsSync(dirpath)) {
+        var pathtmp;
+        dirpath.split( '/' ).forEach(function(dirname) {
+            if (pathtmp) {
+                pathtmp = path.join(pathtmp, dirname);
+            }
+            else {
+                pathtmp = dirname;
+            }
+            if (!fs.existsSync(pathtmp)) {
+                if (!fs.mkdirSync(pathtmp)) {
+                    return false;
+                }
+            }
+        });
+    }
+    return true; 
+}
+
+mkdirsSync( 'E://ihav/apen/' )
+
+fs.writeFile('E://ihav/apen/test.jpeg',b,function(err){
 		console.log('has finished')
 	})
