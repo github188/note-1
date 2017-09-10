@@ -164,9 +164,9 @@ DROP TABLE IF EXISTS `HI_SHARE_ATTACH`;
 CREATE TABLE `HI_SHARE_ATTACH` (
   `COM_ID` varchar(32) NOT NULL DEFAULT '1' COMMENT '医院编号',
   `INFO_ID` varchar(32) NOT NULL DEFAULT '' COMMENT '单据编号',
-  `SEQ` varchar(32) NOT NULL DEFAULT '' COMMENT '行号',
+  `SEQ` int(11) NOT NULL COMMENT '行号',
   `FILE_TYPE` varchar(2)  NULL DEFAULT '' COMMENT '文件类型', 
-  `FILE_DOC_ID` varchar(30)  NULL DEFAULT '' COMMENT '文件路径',
+  `FILE_DOC_ID` varchar(200)  NULL DEFAULT '' COMMENT '文件路径',
   `FILE_NAME` varchar(128)  NULL DEFAULT '' COMMENT '文件名',
   `IS_MRB` varchar(1) DEFAULT NULL COMMENT '是否使用0:否,1:是',  
    `ID` varchar(32) DEFAULT NULL,
