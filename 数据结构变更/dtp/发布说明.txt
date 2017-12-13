@@ -1,7 +1,48 @@
+配置文件路径 /WEB-INF/classes/inddetail.properties
+
 文件目录权限设置，确保这个路径是存在的，且程序有读写权限的
-	###应用服务器数据文件目录,压缩目录
-	com_dtpDataFilePath=/opt/detaildata/datafile/
-	com_dtpZipFilePath=/opt/detaildata/zipfile/
+###应用服务器数据文件目录,压缩目录
+com_dtpDataFilePath=/opt/detaildata/datafile/
+com_dtpZipFilePath=/opt/detaildata/zipfile/
+
+##国家局配置项
+##1、通过Apache下载商业公司的zip数据到icdc_dtpZipFilePath
+##2、ftp上传数据文件到icdc_apacheFtpZipFilePath
+##3、暴露地址为icdc_apacheDownloadDomain+icdc_apacheDownloadPath
+
+###apache服务器ftp配置
+icdc_apacheIsShareStore=1
+icdc_apacheFtpIp=10.110.1.208
+icdc_apacheFtpUser=root
+icdc_apacheFtpPassword=inspur
+icdc_apacheFtpZipFilePath=/opt/apache/htdocs/icdc1/detaildata/zipfile/
+
+###apache服务器暴露地址配置
+icdc_apacheDownloadDomain=http://10.110.1.208
+icdc_apacheDownloadPath=/icdc1/detaildata/zipfile/
+
+##工业公司配置项
+##1、下载国家局暴露的数据文件到ind_dtpZipFilePath中
+##2、解压缩到ind_dtpDataFilePath文件夹中
+##3、上传到ind_dbDataFilePath文件夹中
+##4、执行数据导入操作
+
+###应用数据文件目录,压缩目录
+ind_dtpDataFilePath=/opt/detaildata/datafile/
+ind_dtpZipFilePath=/opt/detaildata/zipfile/
+
+###数据库服务器是否和应用共享存储
+ind_dbIsShareStore=1
+
+###不共享存储情况下，存放ftp传来的数据
+ind_dbDataFilePath=/opt/detaildata/datafile/
+
+###数据库服务器FTP配置，用于数据库服务器与应用服务器不在同一存储下
+ind_dbFtpIp=10.110.1.208
+ind_dbFtpUser=root
+ind_dbFtpPassword=inspur
+ind_dbFtpDataFilePath=/opt/detaildata/datafile/
+
 
 配置定时任务
 	1、商业定时上传订单数据定时器
@@ -24,3 +65,14 @@
 		服务名：	com.v6.dtp.ind.detail.com.IComDetailProducer
 		方法名：	shareAllCustDetailData
 		执行时间：	每月1号 每天	分01 时00 天01 月* 周 * 
+
+配置国家局DTP应用 /WEB-INF/classes/mq_client_conf.properties 文件
+	consumer.subscribeTopic 增加主题 CustCoDetailData
+	consumer.subscribeTags.CustCoDetailData=*
+	consumer.HookObject.CustCoDetailData=
+	consumer.dealObject.CustCoDetailData=com.v6.dtp.ind.detail.icdc.IcDcDetailConsumer
+配置工业DTP应用 /WEB-INF/classes/mq_client_conf.properties 文件
+	consumer.subscribeTopic 增加主题 CustCoDetailDataIcDc
+	consumer.subscribeTags.CustCoDetailDataIcDc=*
+	consumer.HookObject.CustCoDetailDataIcDc=
+	consumer.dealObject.CustCoDetailDataIcDc=com.v6.dtp.ind.detail.ind.IndDetailConsumer

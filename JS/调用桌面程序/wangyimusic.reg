@@ -1,0 +1,16 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\WangYiMusic]
+@="WangYiMusicProtocol"
+"URL Protocol"="G:\\Program Files (x86)\\网易云音乐PC版\\cloudmusic.exe"
+
+[HKEY_CLASSES_ROOT\WangYiMusic\DefaultIcon]
+@="G:\\Program Files (x86)\\网易云音乐PC版\\cloudmusic.exe,1"
+
+[HKEY_CLASSES_ROOT\WangYiMusic\shell]
+
+[HKEY_CLASSES_ROOT\WangYiMusic\shell\open]
+
+[HKEY_CLASSES_ROOT\WangYiMusic\shell\open\command]
+@="\"G:\\Program Files (x86)\\网易云音乐PC版\\cloudmusic.exe\" \"%1\""
+

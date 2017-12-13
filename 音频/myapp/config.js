@@ -1,0 +1,1 @@
+exports.IMG_ROOT = 'D://LHMH_Rec/tmp/'

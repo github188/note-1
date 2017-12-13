@@ -1,0 +1,16 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Tencent]
+@="TencentProtocol"
+"URL Protocol"="D:\\Program Files (x86)\\Tencent\\TIM\\Bin\\Timwp.exe"
+
+[HKEY_CLASSES_ROOT\Tencent\DefaultIcon]
+@="D:\\Program Files (x86)\\Tencent\\TIM\\Bin\\Timwp.exe,1"
+
+[HKEY_CLASSES_ROOT\Tencent\shell]
+
+[HKEY_CLASSES_ROOT\Tencent\shell\open]
+
+[HKEY_CLASSES_ROOT\Tencent\shell\open\command]
+@="\"D:\\Program Files (x86)\\Tencent\\TIM\\Bin\\Timwp.exe\" \"%1\""
+
