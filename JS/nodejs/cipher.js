@@ -3,9 +3,9 @@ const fs = require('fs');
 const cipher = crypto.createCipher('aes192', 'myf');
 
 const encodeFile = ( src, dest )=>{
-	dest = dest ? dest : src
+	dest = dest ? dest : src + '.enc'
 	const input = fs.createReadStream( `${src}` );
-	const output = fs.createWriteStream( `${dest}.enc` );
+	const output = fs.createWriteStream( `${dest}` );
 	input.pipe( cipher ).pipe( output );
 }
 
