@@ -1,0 +1,2 @@
+lftp 
+set sftp:auto-confirm yes;set net:max-retries 2;set net:timeout 10;set net:reconnect-interval-base 5;set net:reconnect-interval-multiplier 1;;open -u "root","inspur" "sftp://10.110.1.208:22";ls
