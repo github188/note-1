@@ -22,7 +22,7 @@ const decodeFile = ( src, dest )=>{
 		if( state == 'done' && tasks.length ){
 			console.log( '继续执行' )
 			const task = tasks.pop()
-			encodeFile( task.src, task.dest )
+			decodeFile( task.src, task.dest )
 		}
 	}
 
