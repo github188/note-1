@@ -1,0 +1,19 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": [
+    "zwj999@inspur.com"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "ftp": "^0.3.10",
+    "ftps": "^1.1.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  }
+}
