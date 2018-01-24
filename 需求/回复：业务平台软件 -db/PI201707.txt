@@ -1,0 +1,250 @@
+﻿¼诊室
+#
+# Structure for table "LH_MEETROOM"
+#
+DROP TABLE IF EXISTS `LH_MEETROOM`;
+CREATE TABLE `LH_MEETROOM` (
+  `COM_ID` varchar(32) NOT NULL DEFAULT '1' COMMENT '所属单位',
+  `ROOM_ID` varchar(20) NOT NULL DEFAULT '' COMMENT '会诊室编号',
+  `ROOM_NAME` varchar(50) NOT NULL DEFAULT '' COMMENT '会诊室名称',
+  `ROOM_TYPE` varchar(2) NOT NULL DEFAULT '' COMMENT '会诊室类型，取枚举ROOMTYPE',
+  `ROOM_IP` varchar(30)  NULL DEFAULT '' COMMENT '会诊室IP',
+  `NOTE` varchar(50)  NULL DEFAULT '' COMMENT '备注',
+  `ID` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`COM_ID`,`ROOM_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `LH_CHANNEL`;
+CREATE TABLE `LH_CHANNEL` (
+  `ID` varchar(32) NOT NULL DEFAULT '',
+  `COM_ID` varchar(32) NOT NULL DEFAULT '1' COMMENT '医院编号',
+  `CHAN_ID` varchar(20) NOT NULL DEFAULT '' COMMENT '设备编号',
+  `CHAN_NAME` varchar(100) DEFAULT NULL COMMENT '设备名称',
+  `SHORT_NAME` varchar(100) DEFAULT NULL COMMENT '设备简称',
+  `CHAN_TYPE` varchar(100) DEFAULT NULL COMMENT '设备类型,枚举CHANTYPE',
+  `ROOM_ID` varchar(30) DEFAULT NULL COMMENT '会诊室',
+  `CHAN_IP` varchar(20) DEFAULT NULL COMMENT 'IP地址',
+  `CHAN_PORT` int(4) DEFAULT NULL COMMENT '端口',
+  `CHAN_USER` varchar(20) DEFAULT NULL COMMENT '登录用户',
+  `CHAN_PASS` varchar(32) DEFAULT NULL COMMENT '登录密码',
+  `NVRIP` varchar(20) DEFAULT NULL COMMENT '存储IP',
+  `STATUS` varchar(1) DEFAULT NULL COMMENT '状态',
+  `NOTE` varchar(20)  DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`COM_ID`,`CHAN_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Structure for table "LH_OFFICE"
+#
+
+DROP TABLE IF EXISTS `LH_OFFICE`;
+CREATE TABLE `LH_OFFICE` (
+  `COM_ID` varchar(32) NOT NULL DEFAULT '1' COMMENT '医院编号',
+  `OFFICE_ID` varchar(10) NOT NULL DEFAULT '' COMMENT '科室编号',
+  `OFFICE_NAME` varchar(50) NOT NULL DEFAULT '' COMMENT '科室名称',
+  `ID` varchar(32) DEFAULT '0',
+  PRIMARY KEY (`COM_ID`,`OFFICE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `LH_DOCTOR`;
+CREATE TABLE `LH_DOCTOR` (
+  `COM_ID` varchar(32) NOT NULL DEFAULT '1' COMMENT '医院编号',
+  `DOCTOR_ID` varchar(32) NOT NULL DEFAULT '' COMMENT '医生编号',
+  `DOCTOR_NAME` varchar(50) NOT NULL DEFAULT '' COMMENT '医生姓名',
+  `OFFICE_ID` varchar(32) DEFAULT NULL COMMENT '科室',
+  `POSITION_ID` varchar(10) DEFAULT NULL COMMENT '职务，岗位，取枚举POSITIONTYPE',
+  `PAY_KIND` varchar(10) DEFAULT NULL COMMENT '收费类型标准，取枚举PAYKIND',
+  `DOCTOR_PK` varchar(32) DEFAULT NULL COMMENT '用户编号',  
+  `TEL` varchar(50) DEFAULT NULL COMMENT '联系方式',
+  `F_MEMO` varchar(255) DEFAULT NULL COMMENT '优势擅长',
+  `id` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`COM_ID`,`DOCTOR_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# Structure for table "PATIENINFO"
+#
+
+DROP TABLE IF EXISTS `PATIENINFO`;
+CREATE TABLE `PATIENINFO` (
+  `COM_ID` varchar(32) NOT NULL DEFAULT '1' COMMENT '医院编号',
+  `F_ID` varchar(20) NOT NULL DEFAULT '' COMMENT '住院号',
+  `F_NAME` varchar(50) NOT NULL DEFAULT '' COMMENT '姓名',
+  `F_AGE` varchar(50) NOT NULL DEFAULT '' COMMENT '年龄',
+  `F_SEX` varchar(50) NOT NULL DEFAULT '' COMMENT '性别 枚举SEX',
+  `F_TYPE` varchar(50) DEFAULT NULL COMMENT '科室OFFICE_ID',
+  `MEDICAL_CARD` varchar(40) NOT NULL DEFAULT '' COMMENT '医保卡号',
+  `PATIENT_PK` varchar(40) NOT NULL DEFAULT '' COMMENT '患者唯一识别编号',
+  `F_MEMO` varchar(50) NOT NULL DEFAULT '' COMMENT '备注',
+  `ID` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`COM_ID`,`F_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Structure for table "LH_APPLY"
+#
+
+DROP TABLE IF EXISTS `lh_apply`;
+CREATE TABLE `lh_apply` (
+  `COM_ID` varchar(32) NOT NULL DEFAULT '1' COMMENT '医院编号',
+  `APPLY_ID` varchar(32) NOT NULL DEFAULT '' COMMENT '申请单号',
+  `DATE1` varchar(32) NOT NULL DEFAULT '' COMMENT '申请日期',
+  `PATIENT_ID` varchar(50) NOT NULL DEFAULT '' COMMENT '病人',
+  `OFFICE_ID` varchar(2) DEFAULT NULL COMMENT '科室',
+  `APCOM_ID` varchar(32) NOT NULL DEFAULT '' COMMENT '拟请会诊单位',
+  `APOFFICE_ID` varchar(32) NOT NULL DEFAULT '' COMMENT '拟请会诊科室',
+  `APDATE1` varchar(32) DEFAULT '' COMMENT '拟会诊时间',
+  `ROOM_ID` varchar(50) DEFAULT '' COMMENT '会诊室',
+  `STATUS` varchar(50) DEFAULT NULL COMMENT '申请单状态枚举APSTATUS',
+  `CRT_USER` varchar(50) NOT NULL DEFAULT '' COMMENT '申请医师',
+  `CRT_NAME` varchar(50) NOT NULL DEFAULT '' COMMENT '申请医师',
+  `MANAGER` varchar(50) DEFAULT NULL COMMENT '科主任',
+  `MANAGER_NAME` varchar(50) DEFAULT NULL COMMENT '科主任',
+  `RETURN_RESION` varchar(30) DEFAULT NULL COMMENT '退回原因',
+  `PBEGIN_DATE` varchar(32) DEFAULT '0' COMMENT '预计开始时间',
+  `PEND_DATE` varchar(32) DEFAULT '0' COMMENT '预计结束时间',
+  `FREE` decimal(18,2) DEFAULT '0.00' COMMENT '费用',
+  `TOTAL_FREE` decimal(18,2) DEFAULT '0.00' COMMENT '费用总计',
+  `BEGIN_DATE` varchar(32) DEFAULT '0' COMMENT '开始时间',
+  `END_DATE` varchar(32) DEFAULT '0' COMMENT '结束时间',
+  `RPT_USER` varchar(50) DEFAULT NULL COMMENT '报告人',
+  `RPT_NAME` varchar(50) DEFAULT NULL COMMENT '报告人',
+  `RPT_TYPE` varchar(2) DEFAULT NULL COMMENT '报告类型，枚举RTPTYPE',
+  `DOCTOR_DETAIL` varchar(200) DEFAULT NULL COMMENT '会诊医生要求，如，主任医师等',
+  `HIS_SUMMARY` varchar(255) DEFAULT '' COMMENT '病史摘要',
+  `CUR_DETAIL` varchar(255) DEFAULT '' COMMENT '目前初步诊断与处理',
+  `MEET_PURPOSE` varchar(255) DEFAULT '' COMMENT '会诊理由和目的',
+  `RPT_DETAIL` varchar(255) DEFAULT '' COMMENT '会诊结果',
+  `ID` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`APPLY_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# Structure for table "LH_APPLY_EXT"
+#
+
+DROP TABLE IF EXISTS `LH_APPLY_EXT`;
+CREATE TABLE `LH_APPLY_EXT` (
+  `APPLY_ID` varchar(32) NOT NULL DEFAULT '' COMMENT '申请单号',
+  `DOCTOR_DETAIL` varchar(200) DEFAULT NULL COMMENT '会诊医生要求，如，主任医师等',
+  `HIS_SUMMARY` BLOB DEFAULT '' COMMENT '病史摘要',
+  `CUR_DETAIL` BLOB DEFAULT '' COMMENT '目前初步诊断与处理',
+  `MEET_PURPOSE` BLOB DEFAULT '' COMMENT '会诊理由和目的',    
+  `RPT_DETAIL` BLOB DEFAULT '' COMMENT '会诊结果',   
+  PRIMARY KEY (`APPLY_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+#
+# Structure for table "LH_APPLY_LINE"
+#
+
+DROP TABLE IF EXISTS `LH_APPLY_LINE`;
+CREATE TABLE `LH_APPLY_LINE` (
+  `APPLY_ID` varchar(32) NOT NULL DEFAULT '' COMMENT '申请单号',
+  `LINE_ID` varchar(32) NOT NULL DEFAULT '' COMMENT '行号',
+  `DOCTOR_ID` varchar(32)  NULL DEFAULT '' COMMENT '医生编号',
+  `DOCTOR_NAME` varchar(50)  NULL DEFAULT '' COMMENT '医生姓名',
+  `PAY_KIND` varchar(2)  NULL DEFAULT '' COMMENT '费用编号 取枚举PAYKIND',
+  `IS_MRB` varchar(1) DEFAULT NULL COMMENT '是否使用0:否,1:是',  
+  PRIMARY KEY (`APPLY_ID`,`LINE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `fileroot` (
+  `ID` varchar(32) DEFAULT '1',
+  `MIP` varchar(32) NOT NULL DEFAULT '' COMMENT '机器IP',
+  `ROOT_ID` varchar(32) NOT NULL DEFAULT '' COMMENT '磁盘路径',
+  `FILE_URL` varchar(250) DEFAULT NULL COMMENT '文件URL',
+  `FILE_NAME` varchar(100) DEFAULT NULL COMMENT '文件名称',
+  `DEPT_ID` varchar(32) DEFAULT NULL COMMENT '部门编码',
+  PRIMARY KEY (`MIP`,`ROOT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+#
+# Structure for table "HI_SHARE_ATTACH"
+#
+DROP TABLE IF EXISTS `HI_SHARE_ATTACH`;
+CREATE TABLE `HI_SHARE_ATTACH` (
+  `COM_ID` varchar(32) NOT NULL DEFAULT '1' COMMENT '医院编号',
+  `INFO_ID` varchar(32) NOT NULL DEFAULT '' COMMENT '单据编号',
+  `SEQ` int(11) NOT NULL COMMENT '行号',
+  `FILE_TYPE` varchar(2)  NULL DEFAULT '' COMMENT '文件类型', 
+  `FILE_DOC_ID` varchar(200)  NULL DEFAULT '' COMMENT '文件路径',
+  `FILE_NAME` varchar(128)  NULL DEFAULT '' COMMENT '文件名',
+  `IS_MRB` varchar(1) DEFAULT NULL COMMENT '是否使用0:否,1:是',  
+   `ID` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`COM_ID`,`INFO_ID`,`SEQ`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Structure for table "ops_dt"
+#
+
+DROP TABLE IF EXISTS `ops_dt`;
+CREATE TABLE `ops_dt` (
+  `ID` varchar(32) NOT NULL,
+  `OPS_ID` varchar(50) NOT NULL,
+  `BEGIN_DATE` varchar(50) NOT NULL,
+  `END_DATE` varchar(50) NOT NULL,
+  `BEGIN_TIME` varchar(50) DEFAULT NULL,
+  `END_TIME` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`OPS_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ou`;
+CREATE TABLE `ou` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `SY` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+#
+# Data for table "ou"
+#
+
+INSERT INTO `ou` VALUES (4,'lZeVzc/Nz87Pzs/OiJCVlp4H7Q==');
+
+
+#
+# Structure for table "pi_com_db"
+#
+
+DROP TABLE IF EXISTS `pi_com_db`;
+CREATE TABLE `pi_com_db` (
+  `FUNCTION_TYPE` varchar(2) NOT NULL,
+  `COM_NAME` varchar(50) DEFAULT NULL,
+  `DB_NAME` varchar(30) DEFAULT NULL,
+  `IP` varchar(20) DEFAULT NULL,
+  `PORT` varchar(10) DEFAULT NULL,
+  `USER_ID` varchar(30) DEFAULT NULL,
+  `DB_DRIVER` varchar(50) DEFAULT NULL,
+  `PASSWORD` varchar(30) DEFAULT NULL,
+  `DB_TYPE` varchar(10) DEFAULT NULL,
+  `OFWHERE` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`FUNCTION_TYPE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Data for table "pi_com_db"
+#
+
+INSERT INTO `pi_com_db` VALUES ('01','lhmh','v6db','10.110.1.71','1521','v6user','oracle.jdbc.driver.OracleDriver','inspur69','oracle','  and operating_room_no in (\'7\',\'13\')'),('02','lhmh1','lhmh_td','127.0.0.1','3306','root','com.mysql.jdbc.Driver',NULL,'mysql','  and operating_room_no in (\'5\',\'6\')'),('03','test2','v6db','10.110.1.71','50000','d','com.ibm.db2.jcc.DB2Driver','d','d','  and operating_room_no in (\'5\',\'6\')');
+
+
+#
+# Structure for table "video"
+#
+
+DROP TABLE IF EXISTS `video`;
+CREATE TABLE `video` (
+  `sid` int(10) NOT NULL AUTO_INCREMENT COMMENT '序号',
+  `v_class` varchar(50) NOT NULL COMMENT '视频分类',
+  `r_num` varchar(50) NOT NULL COMMENT '房间编号',
+  `v_type` varchar(50) NOT NULL COMMENT '视频类型',
+  `ms_ip` varchar(50) NOT NULL COMMENT '存储服务器IP',
+  `c_ip` varchar(50) NOT NULL COMMENT '摄像机IP',
+  `c_user` varchar(50) NOT NULL COMMENT '摄像机USER',
+  `c_password` varchar(50) NOT NULL COMMENT '摄像机PASSWORD',
+  `v_channel` varchar(50) NOT NULL COMMENT '视频通道号(0-15)',
+  `f_mode` varchar(50) NOT NULL COMMENT '转发方式',
+  `f_source` varchar(50) NOT NULL COMMENT '转发源',
+  PRIMARY KEY (`sid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
