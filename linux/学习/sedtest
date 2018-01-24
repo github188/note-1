@@ -1,0 +1,6 @@
+# sed 默认执行打印当前行操作
+- sed '' filename
+
+### 使用正则表达式 sed '//' filename
+
+### sed -i表示修改源代码

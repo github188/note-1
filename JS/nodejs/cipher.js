@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const fs = require('fs');
+const CIPHER_SECTURE = 'myf'
 
 let state = 'done' // 未开始
 let tasks = []
@@ -14,7 +15,7 @@ const encodeFile = ( src, dest )=>{
 	dest = dest ? dest : src + '.enc'
 	const input = fs.createReadStream( `${src}` );
 	const output = fs.createWriteStream( `${dest}` );
-	const cipher = crypto.createCipher('aes192', 'myf');
+	const cipher = crypto.createCipher('aes192', CIPHER_SECTURE);
 	input.pipe( cipher ).pipe( output );
 
 	const _goon = ()=>{ //继续执行
