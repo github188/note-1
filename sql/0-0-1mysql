@@ -19,7 +19,8 @@ show tables;	//显示所有表
 **********************************************************************************************************************
 //修改密码 (没起作用)
 set password for 'root'@'localhost' = '';
-update mysql.user set password = '123456' where host = 'localhost' and user = 'root';
+-- update mysql.user set password = '123456' where host = 'localhost' and user = 'root';
+update mysql.user set password=password("123456") where user="root";
 flush privileges;
 
 
@@ -48,3 +49,6 @@ innodb_force_recovery可以设置为1-6,大的数字包含前面所有数字的�
 
 
 CREATE DATABASE `test2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
+
+- ERROR 2003 (HY000): Can't connect to MySQL server on 'localhost' (10061)
+- 发现是mysql.user表空了
