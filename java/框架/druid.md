@@ -5,6 +5,7 @@
 
 - 首先下载druid的jar包，放到工程的lib目录下
 - 配置DataSource
+	```
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://10.110.1.176:3306/v6db"></property>
@@ -17,7 +18,8 @@
 		<property name="username" value="root"></property>
 		<property name="password" value="root"></property>
 	</bean>
-
+	```
+	```
 	其它的一些配置
 	<!-- 配置初始化大小、最小、最大 --> 
 	<property name="initialSize" value="1" /> 
@@ -32,11 +34,13 @@
 	<property name="testWhileIdle" value="true" />
 
 	<!-- 开启SQL监控 --> 
-	<property name="filters" value="stat" /> 
+	<property name="filters" value="stat" />
+	```
 	filters	属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有： 
 	监控统计用的filter:stat日志用的filter:log4j防御sql注入的filter:wall
 
 - web.xml 添加配置
+	```
 	<!-- 连接池 启用 Web 监控统计功能    start-->
 	<filter>
 		<filter-name>DruidWebStatFilter</filter-name>
@@ -67,6 +71,7 @@
 		<url-pattern>/druid/*</url-pattern>
 	</servlet-mapping>
 	<!-- 连接池 启用 Web 监控统计功能    end-->
+	```
 
 - http://localhost/ica/druid/index.html
 
@@ -75,14 +80,16 @@
 	大致想法就是通过druid获取所有项目运行中的慢sql执行记录，并将这些数据输出到日志文件中，查了一下druid的资料，调试了一段时间，最终成功实现。
 
 - 修改数据源配置，增加拦截器：
-
+	```
 	<property name="proxyFilters">
 		<list>
 			<ref bean="stat-filter"/>
 			<ref bean="log-filter"/>
 		</list>
 	</property>
+	```
 - 配置慢sql及日志拦截器：
+	```
 	<!-- 慢SQL记录 -->
 	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
 		<!-- 慢sql时间设置,即执行时间大于200毫秒的都是慢sql -->
@@ -94,7 +101,9 @@
 		<property name="dataSourceLogEnabled" value="true" />
 		<property name="statementExecutableSqlLogEnable" value="true" />
 	</bean>
+	```
 - 修改log4j配置文件，增加慢sql日志的输出策略：
+	```
 	log4j.rootLogger=DEBUG,debug,druid
 	# Druid
 	log4j.logger.druid.sql=WARN,druid
@@ -109,10 +118,12 @@
 	log4j.appender.druid.Threshold = WARN
 	log4j.appender.druid.append=true
 	log4j.appender.druid.File=${catalina.home}/logs/ssm-maven/druid-slow-sql.log
+	```
 
-### 开启spring监控 （V6未验证） http://www.cnblogs.com/telwanggs/p/7484854.html
+### 开启spring监控 （V6未验证） [出处](http://www.cnblogs.com/telwanggs/p/7484854.html)
 - 在监控面板中看到有spring监控这个功能
 	配置如下：
+	```
 	<bean id="druid-stat-interceptor"
 		class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
 	</bean>
@@ -130,3 +141,4 @@
 	<aop:config>
 		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
 	</aop:config>
+	```
