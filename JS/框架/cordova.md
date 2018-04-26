@@ -18,6 +18,7 @@
 
 ## 版本更新
 - cordova-hcp build
+- 注意login.html index.html必须引入cordova.js
 
 
 
@@ -26,3 +27,5 @@
 ## 原生通知
 - https://github.com/zjcboy/ionic2-jpush-demo
 - https://docs.jiguang.cn/jpush/server/sdk/java_sdk/
+
+- adb devices -l 查看当前连接到本级的手机列表
