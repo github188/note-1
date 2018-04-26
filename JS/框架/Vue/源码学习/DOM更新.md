@@ -1,6 +1,9 @@
 ## VUE的DOM更新根据见到的资料来看，是比传统的更新方式要高效。根据源码调试，有以下一些机制
 
 - 由未知的技术，实现了页面Input元素输入的时候，修改vm data的数据 （待学习）
+	补充： 虽然最终的原理还没有贯通，但是最终是通过 \vue\src\core\vdom\helpers\update-listeners.js
+	updateListeners函数实现的dom变化调用数据变更的逻辑
+	
 	```
 		set: function reactiveSetter (newVal) {
 			var value = getter ? getter.call(obj) : val;
