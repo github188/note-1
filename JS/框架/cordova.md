@@ -29,3 +29,16 @@
 - https://docs.jiguang.cn/jpush/server/sdk/java_sdk/
 
 - adb devices -l 查看当前连接到本级的手机列表
+
+- cordova plugin add https://github.com/ETENG-OSP/cordova-plugin-baidu-geolocation.git --variable API_KEY=qwoE9jjwcfoAPLnQcfxyOZfQ2rbzrv4d --save
+
+- cordova plugin add cordova-plugin-bdlocation --variable ANDROID_API_KEY=qwoE9jjwcfoAPLnQcfxyOZfQ2rbzrv4d --variable IOS_API_KEY=qwoE9jjwcfoAPLnQcfxyOZfQ2rbzrv4d --save
+
+- cordova plugin add cordova-plugin-baidumaplocation --variable ANDROID_KEY=qwoE9jjwcfoAPLnQcfxyOZfQ2rbzrv4d  --variable IOS_KEY=qwoE9jjwcfoAPLnQcfxyOZfQ2rbzrv4d
+
+- https://www.npmjs.com/package/cordova-plugin-baidumaplocation
+
+
+- copyFileSync: could not write to dest file (code=EPERM):C:\myApp\platforms\android\res\xml\config.xml
+- 解决: 以管理员运行脚本
+
