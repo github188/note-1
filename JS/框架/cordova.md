@@ -11,7 +11,7 @@
 - cordova build --release android
 
 ## 证书加密：
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore inspur.keystore app-release-unsigned.apk inspur
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore inspur.keystore android-release-unsigned.apk inspur
 
 
 
@@ -42,3 +42,27 @@
 - copyFileSync: could not write to dest file (code=EPERM):C:\myApp\platforms\android\res\xml\config.xml
 - 解决: 以管理员运行脚本
 
+
+包名 com.inspur.sdApp
+keytool -list -v -keystore inspur.keystore
+SHA1: A7:C2:ED:5D:1A:7C:85:BB:A5:68:CE:56:39:1B:04:79:CC:20:6F:18
+
+android ak
+jP7TexuLLz6P4omhqKoReFLrADMD5bk6
+
+ios ak
+tTkoCtSECCQMjVdDbGKSgUL0f0fQVByp
+
+- 安装cordova过程中遇到错误
+	npm ERR! path C:\Users\zhangwenjie\AppData\Roaming\npm\node_modules\cordova\node_modules\insight\package.json.1204456938
+	npm ERR! code EPERM
+	npm ERR! errno -4048
+	npm ERR! syscall rename
+	npm ERR! Error: EPERM: operation not permitted, rename 'C:\Users\zhangwenjie\AppData\Roaming\npm\node_modules\cordova\node_modules\insight\package.json.1204456938' -> 'C:\Users\zhangwenjie\AppData\Roaming\npm\node_modules\cordova\no
+	de_modules\insight\package.json'
+
+	猜想可能是某公司的电脑，个人用户的权限有问题或者有全局安装的npm包冲突了，把全局安装的npm包位置改到D盘去
+
+	npm config ls
+	npm config set prefix "D:\\npm"
+	环境变量增加 D:\npm
