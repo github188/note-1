@@ -34,7 +34,7 @@
 
 - cordova plugin add cordova-plugin-bdlocation --variable ANDROID_API_KEY=qwoE9jjwcfoAPLnQcfxyOZfQ2rbzrv4d --variable IOS_API_KEY=qwoE9jjwcfoAPLnQcfxyOZfQ2rbzrv4d --save
 
-- cordova plugin add cordova-plugin-baidumaplocation --variable ANDROID_KEY=qwoE9jjwcfoAPLnQcfxyOZfQ2rbzrv4d  --variable IOS_KEY=qwoE9jjwcfoAPLnQcfxyOZfQ2rbzrv4d
+- cordova plugin add cordova-plugin-baidumaplocation --variable ANDROID_KEY=jP7TexuLLz6P4omhqKoReFLrADMD5bk6  --variable IOS_KEY=K7fDleXROkGqvVL52VGZwIthQbRPfuxi
 
 - https://www.npmjs.com/package/cordova-plugin-baidumaplocation
 
@@ -51,7 +51,14 @@ android ak
 jP7TexuLLz6P4omhqKoReFLrADMD5bk6
 
 ios ak
-tTkoCtSECCQMjVdDbGKSgUL0f0fQVByp
+K7fDleXROkGqvVL52VGZwIthQbRPfuxi
+
+- 208 测试
+- android zRmHKxEk026zgGtzchjD6Vl7uxqc9Xck
+- ios IDc9698d5sVNO9zMAbZTvv7iTHMqGUNY
+
+- 申请IOS KEY安全码
+- 在申请开发密钥的时候，需要填写对应工程的安全码。这里的安全码指的是该应用的Bundle Identifier，获取方式如下： Xcode切换到Summary标签查看Bundle Identifier
 
 - 安装cordova过程中遇到错误
 	npm ERR! path C:\Users\zhangwenjie\AppData\Roaming\npm\node_modules\cordova\node_modules\insight\package.json.1204456938
